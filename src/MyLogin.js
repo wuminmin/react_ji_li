@@ -4,7 +4,7 @@ import './index.css';
 import { Row, Col, Input, Button, Icon } from 'antd';
 import Qs from 'qs';
 import axios from 'axios';
-
+import AppGlobal from './AppGlobal'
 export default class MyLogin extends React.Component {
 
     constructor(props) {
@@ -22,27 +22,35 @@ export default class MyLogin extends React.Component {
     f_deng_lu = (e) =>{
         console.log(e);
         let self = this;
-        // self.props.historyhistory.push("/?username=wmm&role=admin") ;
-        let data = {
-            "username": this.state.username,
-            "smscode":this.state.smscode
-        }
-        this.props.history.push({ pathname: '/', state: { data } });
 
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            method: 'post',
-            url: 'http://114.116.152.155:8080/role/login',
-            data: Qs.stringify(data)
-        }).then(function (response) {
-            console.log(response);
-            self.props.historyhistory.push("/?username=wmm&role=admin") 
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+        let data = {
+            "usertoken":"123456"
+        }
+        window.location.href = AppGlobal.url.index+'?usertoken=123456'
+        // this.props.history.push({search:'?usertoken=123456'})
+        // this.props.history.push({ pathname: '/', state: { data } });
+
+        // let login_data = {
+        //     "username": this.state.username,
+        //     "smscode":this.state.smscode
+        // }
+        // axios({
+        //     headers: {
+        //         'Content-Type': 'application/x-www-form-urlencoded'
+        //     },
+        //     method: 'post',
+        //     url: AppGlobal.url.javaurl_login,
+        //     data: Qs.stringify(login_data)
+        // }).then(function (response) {
+        //     console.log(response);
+        //     let data = {
+        //         "my_takeon":response.data
+        //     }
+        //     this.props.history.push({ pathname: '/', state: { data } });
+        // })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
 
     }
 
@@ -53,7 +61,8 @@ export default class MyLogin extends React.Component {
                     <Col span={8}>
                     </Col>
                     <Col span={8}>
-                        <h1>激励管理系统</h1>
+                        <h1>{AppGlobal.url.javaurl_login}</h1>
+                        
                     </Col>
                     <Col span={8}>
                     </Col>

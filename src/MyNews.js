@@ -33,7 +33,7 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/qyrd/rd_xia_zai_by_lan_mu',
+            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_lan_mu',
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
@@ -55,7 +55,7 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/qyrd/rd_xia_zai_by_tittle',
+            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_tittle',
             data: Qs.stringify(data2)
         }).then(function (response) {
             console.log(response)
@@ -73,7 +73,7 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/qyrd/rd_xia_zai_time_by_tittle',
+            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_time_by_tittle',
             data: Qs.stringify(data2)
         }).then(function (response) {
             console.log(response)
@@ -100,7 +100,7 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/qyrd/rd_xia_zai_by_tittle',
+            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_tittle',
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
@@ -117,7 +117,7 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/qyrd/rd_xia_zai_time_by_tittle',
+            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_time_by_tittle',
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
