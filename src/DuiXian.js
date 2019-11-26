@@ -4,16 +4,21 @@ import BraftEditor from 'braft-editor'
 import axios from 'axios'
 import Qs from 'qs'
 import moment from 'moment'
-import { Upload, message, Select, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
+import { Menu, Table, Divider, Upload, message, Select, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
 import MyHeader from './MyHeader'
 import AppGlobal from './AppGlobal'
+const { SubMenu } = Menu;
 
 export default class DuiXian extends React.Component {
     state = {
-        活动清单: ['测试'],
+        活动详单: [],
+        菜单列表: [],
+        lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
+        ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
+        my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
         tittle: '',
         type: '已发布',
-        usertoken: '',
+        usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
         userrole: '',
@@ -47,7 +52,7 @@ export default class DuiXian extends React.Component {
             }).then(function (response) {
                 console.log(response)
                 if (response.data.username === '') {
-                    window.location.href = AppGlobal.url.login
+                    // window.location.href = AppGlobal.url.login
                 } else {
                     self.setState({
                         username: response.data.username,
@@ -64,25 +69,29 @@ export default class DuiXian extends React.Component {
                     console.log(error);
                 });
 
+            let data2 = {
+                "type":self.state.type
+            }
             axios({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 method: 'post',
-                url: AppGlobal.url.get_tittle_list,
-                data: Qs.stringify(data)
+                url: AppGlobal.url.rd_xia_zai_by_lan_mu,
+                data: Qs.stringify(data2)
             }).then(function (response) {
                 console.log(response)
                 self.setState({
-                    活动清单: response.data
-                })
+                    菜单列表: response.data
+                });
             })
                 .catch(function (error) {
                     console.log(error);
                 });
 
         } catch (e) {
-            window.location.href = AppGlobal.url.login
+            console.log(e)
+            // window.location.href = AppGlobal.url.login
         }
     }
 
@@ -90,12 +99,37 @@ export default class DuiXian extends React.Component {
         console.log(`selected ${value}`);
     }
 
-    render() {
-        const { Option } = Select
+    handleClick = e => {
+        console.log('click ', e.key);
+        let self = this;
+        let data = {
+            "tittle": e.key,
+            "usertoken":self.state.usertoken
+        }
+        axios({
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            method: 'post',
+            url: 'https://wx.wuminmin.top/jilizhushou/get_tables_by_tittle',
+            data: Qs.stringify(data)
+        }).then(function (response) {
+            console.log(response)
+            self.setState({
+                活动详单: response.data
+            });
 
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    render() {
         const props = {
             name: 'file',
             action: AppGlobal.url.upload,
+            // action:'https://www.mocky.io/v2/5cc8019d300000980a055e76',
             headers: {
                 authorization: 'authorization-text',
             },
@@ -111,22 +145,133 @@ export default class DuiXian extends React.Component {
             },
         };
 
+        const columns = [
+            {
+                title: '主数据',
+                dataIndex: 'name',
+                key: 'name',
+                render: text => <a>{text}</a>,
+            },
+            {
+                title: '销售品编码',
+                dataIndex: 'age',
+                key: 'age',
+            },
+            {
+                title: '激励金额',
+                dataIndex: 'address',
+                key: 'address',
+            },
+            {
+                title: '激励账期',
+                key: 'tags',
+                dataIndex: 'tags',
+                render: tags => (
+                    <span>
+                        {tags.map(tag => {
+                            let color = tag.length > 5 ? 'geekblue' : 'green';
+                            if (tag === 'loser') {
+                                color = 'volcano';
+                            }
+                            return (
+                                <Tag color={color} key={tag}>
+                                    {tag.toUpperCase()}
+                                </Tag>
+                            );
+                        })}
+                    </span>
+                ),
+            },
+            {
+                title: '银行卡',
+                dataIndex: 'bankid',
+                key: 'bankid',
+            },
+            {
+                title: '操作',
+                key: 'action',
+                render: (text, record) => (
+                    <span>
+                        <a>修改 {record.name}</a>
+                        <Divider type="vertical" />
+                        <a>删除</a>
+                    </span>
+                ),
+            },
+        ];
+
+        const data = [
+            {
+                key: '1',
+                name: 'John Brown',
+                age: 32,
+                address: 'New York No. 1 Lake Park',
+                tags: ['nice', 'developer'],
+                bankid:'677***',
+            },
+            {
+                key: '2',
+                name: 'Jim Green',
+                age: 42,
+                address: 'London No. 1 Lake Park',
+                tags: ['loser'],
+                bankid:'677***',
+            },
+            {
+                key: '3',
+                name: 'Joe Black',
+                age: 32,
+                address: 'Sidney No. 1 Lake Park',
+                tags: ['cool', 'teacher'],
+                bankid:'677***',
+            },
+        ];
+
         return (
             <div>
-                <MyHeader></MyHeader>
+                <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken')}></MyHeader>
                 <Row>
-                    <Col span={2}></Col>
-                    <Col span={20}>
-                        <label>选择活动:</label>
-                        <Select defaultValue="" style={{ width: 120 }} onChange={this.handleChange}>
+                    <Col span={4}>
+                        <PageHeader
+                            style={{
+                                border: '1px solid rgb(235, 237, 240)',
+                            }}
+                            onBack={() => { window.location = '/' }}
+                            title={new URLSearchParams(this.props.location.search).get('ban_kuai')}
+                            subTitle={new URLSearchParams(this.props.location.search).get('lan_mu')}
+                        />,
+                    <Menu
+                            onClick={this.handleClick}
+                            style={{ width: 256 }}
+                            defaultSelectedKeys={['1']}
+                            defaultOpenKeys={['sub1']}
+                            mode="inline"
+                        >
                             {
-                                this.state.活动清单.map((item) => {
+                                this.state.菜单列表.map((item) => {
                                     return (
-                                        <Option value={item}>{item}</Option>
+                                        <SubMenu item={item} key={item.月份} title={
+                                            <span>
+                                                <Icon type="setting" />
+                                                <span>{item.月份}</span>
+                                            </span>
+                                        } >
+                                            {
+                                                item.新闻标题列表.map((item2) => {
+                                                    return (
+                                                        <Menu.Item key={item2.标题}>{item2.标题}</Menu.Item>
+                                                    )
+                                                })
+                                            }
+                                        </SubMenu>
                                     )
                                 })
                             }
-                        </Select>
+                        </Menu>
+                    </Col>
+                    <Col span={2}></Col>
+                    <Col span={18}>
+                        <Table columns={columns} dataSource={this.state.活动详单} />
                         <label>上传清单:</label>
                         <Upload {...props}>
                             <Button>
@@ -134,8 +279,8 @@ export default class DuiXian extends React.Component {
                             </Button>
                         </Upload>
                     </Col>
-                    <Col span={2}></Col>
                 </Row>
+
             </div>
         )
     }

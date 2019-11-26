@@ -137,7 +137,7 @@ export default class App extends React.Component {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         method: 'post',
-        url: 'https://wx.wuminmin.top/jilizhushou/get_user_info',
+        url: AppGlobal.url.getUserInfo,
         data: Qs.stringify(data)
       }).then(function (response) {
         console.log(response)
@@ -166,12 +166,9 @@ export default class App extends React.Component {
   }
 
   render() {
-
-    const search = this.props.location.search;
-    const params = new URLSearchParams(search);
     return (
       <div>
-        <MyHeader usertoken={params.get('usertoken')}></MyHeader>
+        <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken')} ></MyHeader>
         <Row>
           <Col span={2}></Col>
           <Col span={20}>

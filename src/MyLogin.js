@@ -11,47 +11,22 @@ export default class MyLogin extends React.Component {
         super(props);
         this.state = {
             username: '',
-            smscode:'',
+            smscode: '',
         }
     }
 
-    f_yan_zheng_ma = (e) =>{
+    f_yan_zheng_ma = (e) => {
         console.log(e);
     }
 
-    f_deng_lu = (e) =>{
+    f_deng_lu = (e) => {
         console.log(e);
         let self = this;
 
         let data = {
-            "usertoken":"123456"
+            "usertoken": "123456"
         }
-        window.location.href = AppGlobal.url.index+'?usertoken=123456'
-        // this.props.history.push({search:'?usertoken=123456'})
-        // this.props.history.push({ pathname: '/', state: { data } });
-
-        // let login_data = {
-        //     "username": this.state.username,
-        //     "smscode":this.state.smscode
-        // }
-        // axios({
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     },
-        //     method: 'post',
-        //     url: AppGlobal.url.javaurl_login,
-        //     data: Qs.stringify(login_data)
-        // }).then(function (response) {
-        //     console.log(response);
-        //     let data = {
-        //         "my_takeon":response.data
-        //     }
-        //     this.props.history.push({ pathname: '/', state: { data } });
-        // })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-
+        window.location.href = AppGlobal.url.index + '?usertoken=123456'
     }
 
     render() {
@@ -60,9 +35,8 @@ export default class MyLogin extends React.Component {
                 <Row>
                     <Col span={8}>
                     </Col>
-                    <Col span={8}>
-                        <h1>{AppGlobal.url.javaurl_login}</h1>
-                        
+                    <Col span={8} align={'center'}>
+                        <h1>激励助手</h1>
                     </Col>
                     <Col span={8}>
                     </Col>
@@ -89,14 +63,10 @@ export default class MyLogin extends React.Component {
                             placeholder="验证码"
                         />
                     </Col>
-                    <Col span={1}>
-                    </Col>
-                    <Col span={2}>
-                        <Button
-                            type="default"
-                            onClick = {this.f_yan_zheng_ma}
-                            style={{ width: '100%', height: '100%' }}
-                        > 验证码</Button>
+                    <Col span={3} align={'center'}>
+                        <Button onClick={this.f_yan_zheng_ma} type="default" block>
+                            验证码
+                        </Button>
                     </Col>
                     <Col span={8}>
                     </Col>
@@ -106,11 +76,9 @@ export default class MyLogin extends React.Component {
                     <Col span={8}>
                     </Col>
                     <Col span={8}>
-                        <Button
-                            type="primary"
-                            onClick = {this.f_deng_lu}
-                            style={{ width: '100%', height: '100%' }}
-                        > 登陆</Button>
+                        <Button onClick={this.f_deng_lu} type="primary" block>
+                            登陆
+                        </Button>
                     </Col>
                     <Col span={8}>
                     </Col>

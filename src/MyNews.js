@@ -7,6 +7,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 import MyHeader from './MyHeader'
 import MyFooter from './MyFooter'
+import AppGlobal from './AppGlobal'
 const { SubMenu } = Menu;
 
 class MyMenu extends React.Component {
@@ -33,7 +34,7 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_lan_mu',
+            url: AppGlobal.url.rd_xia_zai_by_lan_mu,
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
@@ -55,14 +56,13 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_tittle',
+            url: AppGlobal.url.rd_xia_zai_by_tittle,
             data: Qs.stringify(data2)
         }).then(function (response) {
             console.log(response)
             self.setState({
                 myHTML_article: response.data
             });
-
         })
             .catch(function (error) {
                 console.log(error);
@@ -217,7 +217,7 @@ export default class MyNews extends React.Component {
 
         return (
             <div>
-                <MyHeader></MyHeader>
+                <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken')}></MyHeader>
                 {/* <Row>
                     <Col span={2}></Col>
                     <Col span={20}>

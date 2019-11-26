@@ -83,17 +83,22 @@ export default class WenZhang extends React.Component {
         myHTML: '<div></div>',
         tittle: '',
         type: '已发布',
+        usertoken:new URLSearchParams(this.props.location.search).get('usertoken'),
+        username: '',
+        userphone: '',
+        userrole: '',
+        mainid: '',
+        type1: '',
+        type2: '',
+        type3: '',
     }
 
     componentDidMount() {
         this.isLivinig = true
         let self = this;
         try {
-            const search = this.props.location.search;
-            const params = new URLSearchParams(search);
-            console.log(params)
             let data = {
-                "usertoken": params.get('usertoken')
+                "usertoken": new URLSearchParams(this.props.location.search).get('usertoken')
             }
             axios({
                 headers: {
@@ -105,7 +110,7 @@ export default class WenZhang extends React.Component {
             }).then(function (response) {
                 console.log(response)
                 if (response.data.username === '') {
-                    window.location.href = AppGlobal.url.login
+                    // window.location.href = AppGlobal.url.login
                 } else {
                     self.setState({
                         username: response.data.username,
@@ -123,7 +128,7 @@ export default class WenZhang extends React.Component {
                 });
 
         } catch (e) {
-            window.location.href = AppGlobal.url.login
+            // window.location.href = AppGlobal.url.login
         }
     }
 
@@ -150,11 +155,9 @@ export default class WenZhang extends React.Component {
 
         const { editorState, outputHTML, myHTML } = this.state
 
-        const { Option } = Select
-
         return (
             <div>
-                <MyHeader></MyHeader>
+                <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken') }></MyHeader>
                 <Row>
                     <Col span={2}></Col>
                     <Col span={20}>
