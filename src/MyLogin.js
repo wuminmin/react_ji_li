@@ -17,16 +17,18 @@ export default class MyLogin extends React.Component {
 
     f_yan_zheng_ma = (e) =>{
         console.log(e);
-
     }
 
     f_deng_lu = (e) =>{
         console.log(e);
         let self = this;
+        // self.props.historyhistory.push("/?username=wmm&role=admin") ;
         let data = {
             "username": this.state.username,
             "smscode":this.state.smscode
         }
+        this.props.history.push({ pathname: '/', state: { data } });
+
         axios({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -35,8 +37,8 @@ export default class MyLogin extends React.Component {
             url: 'http://114.116.152.155:8080/role/login',
             data: Qs.stringify(data)
         }).then(function (response) {
-            console.log(response)
-           
+            console.log(response);
+            self.props.historyhistory.push("/?username=wmm&role=admin") 
         })
             .catch(function (error) {
                 console.log(error);
