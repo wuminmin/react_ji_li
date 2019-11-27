@@ -60,6 +60,11 @@ class MyTables extends React.Component {
                     key: 'bankid',
                 },
                 {
+                    title: '状态',
+                    dataIndex: 'mystate',
+                    key: 'mystate',
+                },
+                {
                     title: '操作',
                     key: 'action',
                     render: (text, record) => (
@@ -70,8 +75,33 @@ class MyTables extends React.Component {
                             <Modal
                                 title="激励确认"
                                 visible={this.state.visible}
-                                onOk={this.handleOk}
-                                onCancel={this.handleCancel}
+                                onOk={() => {
+                                    console.log(record.age);
+                                    let self = this;
+                                    let data = {
+                                        "sellid": record.age,
+                                        "usertoken": self.state.usertoken
+                                    }
+                                    axios({
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                        },
+                                        method: 'post',
+                                        url: AppGlobal.url.que_ren_by_sellid,
+                                        data: Qs.stringify(data)
+                                    }).then(function (response) {
+                                        console.log(response)
+                                        self.setState({
+                                            visible: false,
+                                        });
+                                    })
+                                        .catch(function (error) {
+                                            console.log(error);
+                                        });
+
+                                        
+                                }}
+                                onCancel={(record) => { this.handleCancel(record) }}
                             >
                                 <p>请{record.name}确认是否收到{record.age}激励？</p>
                                 <p>已收到！</p>
@@ -80,6 +110,7 @@ class MyTables extends React.Component {
                     ),
                 },
             ],
+            usertoken:this.props.usertoken,
 
         }
         console.log('constructor(props)', this.props.活动详单)
@@ -91,15 +122,16 @@ class MyTables extends React.Component {
         });
     };
 
-    handleOk = e => {
-        console.log(e);
+    handleOk = () => {
+        console.log(this.props.myname)
+
         this.setState({
             visible: false,
         });
     };
 
-    handleCancel = e => {
-        console.log(e);
+    handleCancel = record => {
+        console.log(record.name)
         this.setState({
             visible: false,
         });
@@ -280,7 +312,7 @@ export default class DuiXian extends React.Component {
                     </Col>
                     <Col span={2}></Col>
                     <Col span={18}>
-                        <MyTables 活动详单={this.state.活动详单} handleClick={this.handleClick.bind(this)}></MyTables>
+                        <MyTables  usertoken={this.state.usertoken} 活动详单={this.state.活动详单} handleClick={this.handleClick.bind(this)}></MyTables>
                     </Col>
                 </Row>
             </div>

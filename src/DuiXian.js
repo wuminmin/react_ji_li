@@ -189,6 +189,11 @@ export default class DuiXian extends React.Component {
                 key: 'bankid',
             },
             {
+                title: '状态',
+                dataIndex: 'mystate',
+                key: 'mystate',
+            },
+            {
                 title: '操作',
                 key: 'action',
                 render: (text, record) => (
