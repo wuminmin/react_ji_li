@@ -106,6 +106,7 @@ export default class DuiXian extends React.Component {
             "tittle": e.key,
             "usertoken":self.state.usertoken
         }
+        self.setState({tittle:e.key})
         axios({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -129,10 +130,9 @@ export default class DuiXian extends React.Component {
         const props = {
             name: 'file',
             action: AppGlobal.url.upload,
-            // action:'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+            data:{usertoken:this.state.usertoken,tittle:this.state.tittle},
             headers: {
                 authorization: 'authorization-text',
-                
             },
             onChange(info) {
                 if (info.file.status !== 'uploading') {
