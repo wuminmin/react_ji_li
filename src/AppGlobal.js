@@ -6,6 +6,7 @@ class AppGlobal {
         login:'http://weapp.wuminmin.top/login',
         wenzhang:'http://weapp.wuminmin.top/wenzhang',
         duixian: 'http://weapp.wuminmin.top/duixian',
+        queren:'http://weapp.wuminmin.top/queren',
         upload:'https://wx.wuminmin.top/jilizhushou/upload',
         // upload:'https://www.mocky.io/v2/5cc8019d300000980a055e76',
         myurl2:'http://weapp.wuminmin.top?usertoken=123456',

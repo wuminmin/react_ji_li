@@ -7,6 +7,7 @@ import MyLogin from './MyLogin'
 import WenZhang from './WenZhang'
 import MyNews from './MyNews'
 import DuiXian from './DuiXian'
+import QueRen from './QueRen'
 
 const routing = (
   <Router>
@@ -16,6 +17,7 @@ const routing = (
       <Route exact path="/wenzhang" component={WenZhang} />
       <Route exact path="/mynews" component={MyNews} />
       <Route exact path="/duixian" component={DuiXian} />
+      <Route exact path="/queren" component={QueRen} />
     </div>
   </Router>
 )

@@ -21,6 +21,7 @@ export default class MyHeader extends React.Component {
             首页:AppGlobal.url.index+'?usertoken='+this.props.usertoken,
             发布激励:AppGlobal.url.wenzhang+'?usertoken='+this.props.usertoken+'&ban_kuai=活动管理&lan_mu=发布激励&tittle=默认',
             兑现激励:AppGlobal.url.duixian+'?usertoken='+this.props.usertoken+'&ban_kuai=活动管理&lan_mu=兑现激励&tittle=默认',
+            确认激励:AppGlobal.url.queren+'?usertoken='+this.props.usertoken+'&ban_kuai=我的激励&lan_mu=确认激励&tittle=默认',
         }
       }
 
@@ -85,7 +86,7 @@ export default class MyHeader extends React.Component {
         const menu4 = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=我的激励&lan_mu=确认激励&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={this.state.确认激励}>
                         确认激励
         </a>
                 </Menu.Item>

@@ -4,32 +4,139 @@ import BraftEditor from 'braft-editor'
 import axios from 'axios'
 import Qs from 'qs'
 import moment from 'moment'
-import { Menu, Table, Divider, Upload, message, Select, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
+import { Menu, Modal, Button, Table, Divider, Upload, message, Select, Icon, Row, Col, Dropdown, Tag, PageHeader } from 'antd';
 import MyHeader from './MyHeader'
 import AppGlobal from './AppGlobal'
+
 const { SubMenu } = Menu;
+const { confirm } = Modal;
+
+class MyTables extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            活动详单: this.props.活动详单,
+            visible: false,
+            columns: [
+                {
+                    title: '主数据',
+                    dataIndex: 'name',
+                    key: 'name',
+                    render: text => <a>{text}</a>,
+                },
+                {
+                    title: '销售品编码',
+                    dataIndex: 'age',
+                    key: 'age',
+                },
+                {
+                    title: '激励金额',
+                    dataIndex: 'address',
+                    key: 'address',
+                },
+                {
+                    title: '激励账期',
+                    key: 'tags',
+                    dataIndex: 'tags',
+                    render: tags => (
+                        <span>
+                            {tags.map(tag => {
+                                let color = tag.length > 5 ? 'geekblue' : 'green';
+                                if (tag === 'loser') {
+                                    color = 'volcano';
+                                }
+                                return (
+                                    <Tag color={color} key={tag}>
+                                        {tag.toUpperCase()}
+                                    </Tag>
+                                );
+                            })}
+                        </span>
+                    ),
+                },
+                {
+                    title: '银行卡',
+                    dataIndex: 'bankid',
+                    key: 'bankid',
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    render: (text, record) => (
+                        <span>
+                            <Button type="primary" onClick={this.showModal}>
+                                确认
+                            </Button>
+                            <Modal
+                                title="激励确认"
+                                visible={this.state.visible}
+                                onOk={this.handleOk}
+                                onCancel={this.handleCancel}
+                            >
+                                <p>请{record.name}确认是否收到{record.age}激励？</p>
+                                <p>已收到！</p>
+                            </Modal>
+                        </span>
+                    ),
+                },
+            ],
+
+        }
+        console.log('constructor(props)', this.props.活动详单)
+    }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    render() {
+        return (
+            <Table columns={this.state.columns} dataSource={this.props.活动详单} />
+        )
+    }
+}
 
 export default class DuiXian extends React.Component {
-    state = {
-        活动详单: [],
-        菜单列表: [],
-        lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
-        ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
-        my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
-        tittle: '',
-        type: '已发布',
-        usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
-        username: '',
-        userphone: '',
-        userrole: '',
-        mainid: '',
-        type1: '',
-        type2: '',
-        type3: '',
-        ban_kuai1: '营销活动',
-        ban_kuai2: '新闻中心',
-        ban_kuai3: '依法履职',
-        ban_kuai4: '营销活动',
+    constructor(props) {
+        super(props);
+        this.state = {
+            活动详单: [],
+            菜单列表: [],
+            lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
+            ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
+            my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
+            tittle: '',
+            type: '已发布',
+            usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
+            username: '',
+            userphone: '',
+            userrole: '',
+            mainid: '',
+            type1: '',
+            type2: '',
+            type3: '',
+            ban_kuai1: '营销活动',
+            ban_kuai2: '新闻中心',
+            ban_kuai3: '依法履职',
+            ban_kuai4: '营销活动',
+        }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -70,7 +177,7 @@ export default class DuiXian extends React.Component {
                 });
 
             let data2 = {
-                "type":self.state.type
+                "type": self.state.type
             }
             axios({
                 headers: {
@@ -104,7 +211,7 @@ export default class DuiXian extends React.Component {
         let self = this;
         let data = {
             "tittle": e.key,
-            "usertoken":self.state.usertoken
+            "usertoken": self.state.usertoken
         }
         axios({
             headers: {
@@ -115,9 +222,12 @@ export default class DuiXian extends React.Component {
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
-            self.setState({
-                活动详单: response.data
-            });
+            self.setState
+                (
+                    state => ({
+                        活动详单: response.data
+                    })
+                );
 
         })
             .catch(function (error) {
@@ -126,108 +236,6 @@ export default class DuiXian extends React.Component {
     };
 
     render() {
-        const props = {
-            name: 'file',
-            action: AppGlobal.url.upload,
-            // action:'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-            headers: {
-                authorization: 'authorization-text',
-                
-            },
-            onChange(info) {
-                if (info.file.status !== 'uploading') {
-                    console.log(info.file, info.fileList);
-                }
-                if (info.file.status === 'done') {
-                    message.success(`${info.file.name} file uploaded successfully`);
-                } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} file upload failed.`);
-                }
-            },
-        };
-
-        const columns = [
-            {
-                title: '主数据',
-                dataIndex: 'name',
-                key: 'name',
-                render: text => <a>{text}</a>,
-            },
-            {
-                title: '销售品编码',
-                dataIndex: 'age',
-                key: 'age',
-            },
-            {
-                title: '激励金额',
-                dataIndex: 'address',
-                key: 'address',
-            },
-            {
-                title: '激励账期',
-                key: 'tags',
-                dataIndex: 'tags',
-                render: tags => (
-                    <span>
-                        {tags.map(tag => {
-                            let color = tag.length > 5 ? 'geekblue' : 'green';
-                            if (tag === 'loser') {
-                                color = 'volcano';
-                            }
-                            return (
-                                <Tag color={color} key={tag}>
-                                    {tag.toUpperCase()}
-                                </Tag>
-                            );
-                        })}
-                    </span>
-                ),
-            },
-            {
-                title: '银行卡',
-                dataIndex: 'bankid',
-                key: 'bankid',
-            },
-            {
-                title: '操作',
-                key: 'action',
-                render: (text, record) => (
-                    <span>
-                        <a>修改 {record.name}</a>
-                        <Divider type="vertical" />
-                        <a>删除</a>
-                    </span>
-                ),
-            },
-        ];
-
-        const data = [
-            {
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park',
-                tags: ['nice', 'developer'],
-                bankid:'677***',
-            },
-            {
-                key: '2',
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-                tags: ['loser'],
-                bankid:'677***',
-            },
-            {
-                key: '3',
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-                tags: ['cool', 'teacher'],
-                bankid:'677***',
-            },
-        ];
-
         return (
             <div>
                 <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken')}></MyHeader>
@@ -237,7 +245,7 @@ export default class DuiXian extends React.Component {
                             style={{
                                 border: '1px solid rgb(235, 237, 240)',
                             }}
-                            onBack={() => { window.location = '/' }}
+                            onBack={() => { window.location = AppGlobal.url.index + '?usertoken=' + this.state.usertoken }}
                             title={new URLSearchParams(this.props.location.search).get('ban_kuai')}
                             subTitle={new URLSearchParams(this.props.location.search).get('lan_mu')}
                         />,
@@ -272,16 +280,9 @@ export default class DuiXian extends React.Component {
                     </Col>
                     <Col span={2}></Col>
                     <Col span={18}>
-                        <Table columns={columns} dataSource={this.state.活动详单} />
-                        <label>上传清单:</label>
-                        <Upload {...props}>
-                            <Button>
-                                <Icon type="upload" /> 点击上传文件
-                            </Button>
-                        </Upload>
+                        <MyTables 活动详单={this.state.活动详单} handleClick={this.handleClick.bind(this)}></MyTables>
                     </Col>
                 </Row>
-
             </div>
         )
     }
