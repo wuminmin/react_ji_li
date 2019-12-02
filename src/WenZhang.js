@@ -82,15 +82,15 @@ export default class WenZhang extends React.Component {
         outputHTML: '<p></p>',
         myHTML: '<div></div>',
         tittle: '',
-        type: '已发布',
+        lan_mu: '已发布',
         usertoken:new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
         userrole: '',
         mainid: '',
-        type1: '',
-        type2: '',
-        type3: '',
+        lan_mu1: '',
+        lan_mu2: '',
+        lan_mu3: '',
     }
 
     componentDidMount() {
@@ -117,9 +117,9 @@ export default class WenZhang extends React.Component {
                         userphone: response.data.userphone,
                         userrole: response.data.userrole,
                         mainid: response.data.mainid,
-                        type1: response.data.type1,
-                        type2: response.data.type2,
-                        type3: response.data.type3,
+                        lan_mu1: response.data.lan_mu1,
+                        lan_mu2: response.data.lan_mu2,
+                        lan_mu3: response.data.lan_mu3,
                     })
                 }
             })
@@ -144,7 +144,7 @@ export default class WenZhang extends React.Component {
     }
 
     handleChangeBanShiRiQi = (e) => {
-        this.setState({ type: e.target.value });
+        this.setState({ lan_mu: e.target.value });
     }
 
     handleChangeBanShiRiQi2 = (e) => {
@@ -211,7 +211,7 @@ export default class WenZhang extends React.Component {
                                 let data = {
                                     "article": self.state.outputHTML,
                                     "tittle": self.state.tittle,
-                                    "type": self.state.type,
+                                    "lan_mu": self.state.lan_mu,
                                     "now": moment().format('YYYY-MM-DD HH:mm:ss')
                                 }
                                 axios({

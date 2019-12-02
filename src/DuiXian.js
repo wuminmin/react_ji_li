@@ -17,15 +17,15 @@ export default class DuiXian extends React.Component {
         ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
         my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
         tittle: '',
-        type: '已发布',
+        lan_mu: '已发布',
         usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
         userrole: '',
         mainid: '',
-        type1: '',
-        type2: '',
-        type3: '',
+        lan_mu1: '',
+        lan_mu2: '',
+        lan_mu3: '',
         ban_kuai1: '营销活动',
         ban_kuai2: '新闻中心',
         ban_kuai3: '依法履职',
@@ -59,9 +59,9 @@ export default class DuiXian extends React.Component {
                         userphone: response.data.userphone,
                         userrole: response.data.userrole,
                         mainid: response.data.mainid,
-                        type1: response.data.type1,
-                        type2: response.data.type2,
-                        type3: response.data.type3,
+                        lan_mu1: response.data.lan_mu1,
+                        lan_mu2: response.data.lan_mu2,
+                        lan_mu3: response.data.lan_mu3,
                     })
                 }
             })
@@ -70,7 +70,7 @@ export default class DuiXian extends React.Component {
                 });
 
             let data2 = {
-                "type":self.state.type
+                "lan_mu":self.state.lan_mu
             }
             axios({
                 headers: {
