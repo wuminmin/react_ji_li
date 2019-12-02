@@ -26,6 +26,9 @@ class AppGlobal {
         rd_xia_zai_by_lan_mu:'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_lan_mu',
         rd_xia_zai_by_tittle:'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_tittle',
         que_ren_by_sellid:'https://wx.wuminmin.top/jilizhushou/que_ren_by_sellid',
+        send_sms:'https://wx.wuminmin.top/jilizhushou/send_sms',
+        deng_lu:'https://wx.wuminmin.top/jilizhushou/deng_lu',
+        upload_userinfos:'https://wx.wuminmin.top/jilizhushou/upload_userinfos',
 
         index:'http://134.64.248.147:18090',
         login:'http://134.64.248.147:18090/login',
@@ -33,6 +36,7 @@ class AppGlobal {
         duixian: 'http://134.64.248.147:18090/duixian',
         queren:'http://134.64.248.147:18090/queren',
         myurl2:'http://134.64.248.147:18090?usertoken=123456',
+        mynews:'http://134.64.248.147:18090/mynews',
        
     };
     

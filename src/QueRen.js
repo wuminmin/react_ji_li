@@ -91,6 +91,7 @@ class MyTables extends React.Component {
                                         data: Qs.stringify(data)
                                     }).then(function (response) {
                                         console.log(response)
+                                        message.success(response.data.code)
                                         self.setState({
                                             visible: false,
                                         });

@@ -4,7 +4,7 @@ import BraftEditor from 'braft-editor'
 import axios from 'axios'
 import Qs from 'qs'
 import moment from 'moment'
-import { Select, Layout, Menu, Breadcrumb, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
+import {Upload, message, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
 import MyHeader from './MyHeader'
 import AppGlobal from './AppGlobal'
 
@@ -155,20 +155,39 @@ export default class WenZhang extends React.Component {
 
         const { editorState, outputHTML, myHTML } = this.state
 
+        const props = {
+            name: 'file',
+            action: AppGlobal.url.upload_userinfos,
+            data:{usertoken:this.state.usertoken,tittle:this.state.tittle},
+            headers: {
+                authorization: 'authorization-text',
+            },
+            onChange(info) {
+                if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList);
+                }
+                if (info.file.status === 'done') {
+                    message.success(`${info.file.name} file uploaded successfully`);
+                } else if (info.file.status === 'error') {
+                    message.error(`${info.file.name} file upload failed.`);
+                }
+            },
+        };
+
         return (
             <div>
                 <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken') }></MyHeader>
                 <Row>
                     <Col span={2}></Col>
                     <Col span={20}>
-                        {/* <label>活动状态:</label>
-                        <Select defaultValue="jack" style={{ width: 120 }} onChange={this.handleChangeBanShiRiQi}>
-                            <Option value="jack">已发布</Option>
-                            <Option value="lucy">兑现中</Option>
-                            <Option value="Yiminghe">已归档</Option>
-                        </Select> */}
                         <label>活动名称:</label>
                         <input type="txt" defaultValue="" onChange={this.handleChangeBanShiRiQi2} />
+                        <label>导入人员清单:</label>
+                        <Upload {...props}>
+                            <Button>
+                                <Icon type="upload" /> 点击上传文件
+                            </Button>
+                        </Upload>
                         <div className="editor-wrapper">
                             <BraftEditor
                                 value={editorState}
@@ -185,8 +204,6 @@ export default class WenZhang extends React.Component {
 
                         <h5>预览文章</h5>
                         <div dangerouslySetInnerHTML={{ __html: myHTML }} />
-                        <h5>选择活动对象</h5>
-                        <Demo></Demo>
                         <Button
                             type="primary"
                             onClick={e => {
@@ -218,7 +235,13 @@ export default class WenZhang extends React.Component {
                     </Col>
                     <Col span={2}></Col>
                 </Row>
-
+                <Row>
+                    <Col span={2}></Col>
+                    <Col span={20}>
+                       
+                    </Col>
+                    <Col span={2}></Col>
+                </Row>
             </div>
         )
     }
