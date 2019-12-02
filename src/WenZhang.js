@@ -167,9 +167,9 @@ export default class WenZhang extends React.Component {
                     console.log(info.file, info.fileList);
                 }
                 if (info.file.status === 'done') {
-                    message.success(`${info.file.name} file uploaded successfully`);
+                    message.success(`${info.file.name} ${info.file.response.code}`);
                 } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} file upload failed.`);
+                    message.error(`${info.file.name} ${info.file.response.code}`);
                 }
             },
         };
