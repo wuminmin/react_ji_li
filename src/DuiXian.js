@@ -17,15 +17,15 @@ export default class DuiXian extends React.Component {
         ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
         my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
         tittle: '',
-        lan_mu: '已发布',
+        type: '已发布',
         usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
         userrole: '',
         mainid: '',
-        lan_mu1: '',
-        lan_mu2: '',
-        lan_mu3: '',
+        type1: '',
+        type2: '',
+        type3: '',
         ban_kuai1: '营销活动',
         ban_kuai2: '新闻中心',
         ban_kuai3: '依法履职',
@@ -59,9 +59,9 @@ export default class DuiXian extends React.Component {
                         userphone: response.data.userphone,
                         userrole: response.data.userrole,
                         mainid: response.data.mainid,
-                        lan_mu1: response.data.lan_mu1,
-                        lan_mu2: response.data.lan_mu2,
-                        lan_mu3: response.data.lan_mu3,
+                        type1: response.data.type1,
+                        type2: response.data.type2,
+                        type3: response.data.type3,
                     })
                 }
             })
@@ -70,7 +70,7 @@ export default class DuiXian extends React.Component {
                 });
 
             let data2 = {
-                "lan_mu":self.state.lan_mu
+                "type":self.state.type
             }
             axios({
                 headers: {
@@ -107,7 +107,6 @@ export default class DuiXian extends React.Component {
             "usertoken":self.state.usertoken
         }
         self.setState({tittle:e.key})
-        console.log(self.state.tittle)
         axios({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -140,9 +139,9 @@ export default class DuiXian extends React.Component {
                     console.log(info.file, info.fileList);
                 }
                 if (info.file.status === 'done') {
-                    message.success(`${info.file.name} ${info.file.response.code}`);
+                    message.success(`${info.file.name} file uploaded successfully`);
                 } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} ${info.file.response.code}`);
+                    message.error(`${info.file.name} file upload failed.`);
                 }
             },
         };
@@ -199,8 +198,8 @@ export default class DuiXian extends React.Component {
                 key: 'action',
                 render: (text, record) => (
                     <span>
-                        {/* <a>修改 {record.name}</a> */}
-                        {/* <Divider type="vertical" /> */}
+                        <a>修改 {record.name}</a>
+                        <Divider type="vertical" />
                         <a>删除</a>
                     </span>
                 ),

@@ -27,7 +27,7 @@ class MyMenu extends React.Component {
     componentDidMount() {
         let self = this;
         let data = {
-            "lan_mu": this.props.lan_mu
+            "type": this.props.lan_mu
         }
         axios({
             headers: {

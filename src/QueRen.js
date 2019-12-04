@@ -91,7 +91,6 @@ class MyTables extends React.Component {
                                         data: Qs.stringify(data)
                                     }).then(function (response) {
                                         console.log(response)
-                                        message.success(response.data.code)
                                         self.setState({
                                             visible: false,
                                         });
@@ -155,15 +154,15 @@ export default class DuiXian extends React.Component {
             ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
             my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
             tittle: '',
-            lan_mu: '已发布',
+            type: '已发布',
             usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
             username: '',
             userphone: '',
             userrole: '',
             mainid: '',
-            lan_mu1: '',
-            lan_mu2: '',
-            lan_mu3: '',
+            type1: '',
+            type2: '',
+            type3: '',
             ban_kuai1: '营销活动',
             ban_kuai2: '新闻中心',
             ban_kuai3: '依法履职',
@@ -199,9 +198,9 @@ export default class DuiXian extends React.Component {
                         userphone: response.data.userphone,
                         userrole: response.data.userrole,
                         mainid: response.data.mainid,
-                        lan_mu1: response.data.lan_mu1,
-                        lan_mu2: response.data.lan_mu2,
-                        lan_mu3: response.data.lan_mu3,
+                        type1: response.data.type1,
+                        type2: response.data.type2,
+                        type3: response.data.type3,
                     })
                 }
             })
@@ -210,7 +209,7 @@ export default class DuiXian extends React.Component {
                 });
 
             let data2 = {
-                "lan_mu": self.state.lan_mu
+                "type": self.state.type
             }
             axios({
                 headers: {
