@@ -43,34 +43,6 @@ class MyTabs extends React.Component {
   }
 
   render() {
-
-    // const tabs_list_data = [
-    //   {
-    //     'table_key': '1',
-    //     'table_name': '人大要闻',
-    //     'list_data':
-    //       [{ 'key': '人大要闻11111', 'key2': 'aaaaa', 'url': '/mynews?ban_kuai=人大要闻&lan_mu=人大概况&tittle=人大要闻11111' }, { 'key': '人大要闻222222', 'key2': 'bbbbbbb' }, { 'key': '3333333', 'key2': 'cccccccc' }]
-    //   },
-    //   {
-    //     'table_key': '2',
-    //     'table_name': '通知公告',
-    //     'list_data':
-    //       [{ 'key': '通知公告11111', 'key2': 'aaaaa' }, { 'key': '通知公告222222', 'key2': 'bbbbbbb' }, { 'key': '3333333', 'key2': 'cccccccc' }]
-    //   },
-    //   {
-    //     'table_key': '3',
-    //     'table_name': '领导讲话',
-    //     'list_data':
-    //       [{ 'key': '领导讲话11111', 'key2': 'aaaaa' }, { 'key': '领导讲话222222', 'key2': 'bbbbbbb' }, { 'key': '3333333', 'key2': 'cccccccc' }]
-    //   },
-    //   {
-    //     'table_key': '4',
-    //     'table_name': '工作动态',
-    //     'list_data':
-    //       [{ 'key': '工作动态11111', 'key2': 'aaaaa' }, { 'key': '工作动态222222', 'key2': 'bbbbbbb' }, { 'key': '3333333', 'key2': 'cccccccc' }]
-    //   }
-    // ]
-
     const { TabPane } = Tabs;
 
     function callback(key) {

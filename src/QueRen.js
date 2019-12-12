@@ -150,11 +150,10 @@ export default class DuiXian extends React.Component {
         this.state = {
             活动详单: [],
             菜单列表: [],
-            lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
             ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
             my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
             tittle: '',
-            type: '已发布',
+            lan_mu: '兑现中',
             usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
             username: '',
             userphone: '',
