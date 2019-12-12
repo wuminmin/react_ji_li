@@ -17,7 +17,7 @@ export default class Daoru extends React.Component {
         ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
         my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
         tittle: '',
-        lan_mu: '已发布',
+        lan_mu: '兑现中',
         usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',

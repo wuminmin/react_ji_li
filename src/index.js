@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
+import { Route, HashRouter } from 'react-router-dom'
 import App from './App'
 import MyLogin from './MyLogin'
 import WenZhang from './WenZhang'
@@ -10,7 +10,7 @@ import DuiXian from './DuiXian'
 import QueRen from './QueRen'
 
 const routing = (
-  <Router>
+  <HashRouter>
     <div>
       <Route exact path="/" component={App} />
       <Route exact path="/login" component={MyLogin} />
@@ -19,6 +19,6 @@ const routing = (
       <Route exact path="/duixian" component={DuiXian} />
       <Route exact path="/queren" component={QueRen} />
     </div>
-  </Router>
+  </HashRouter>
 )
 ReactDOM.render(routing, document.getElementById('root'))

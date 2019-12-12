@@ -31,12 +31,12 @@ class AppGlobal {
         upload_userinfos:'https://wx.wuminmin.top/jilizhushou/upload_userinfos',
 
         index:'http://134.64.248.147:18090',
-        login:'http://134.64.248.147:18090/login',
-        wenzhang:'http://134.64.248.147:18090/wenzhang',
-        duixian: 'http://134.64.248.147:18090/duixian',
-        queren:'http://134.64.248.147:18090/queren',
-        myurl2:'http://134.64.248.147:18090?usertoken=123456',
-        mynews:'http://134.64.248.147:18090/mynews',
+        login:'http://134.64.248.147:18090/#/login',
+        wenzhang:'http://134.64.248.147:18090/#/wenzhang',
+        duixian: 'http://134.64.248.147:18090/#/duixian',
+        queren:'http://134.64.248.147:18090/#/queren',
+        myurl2:'http://134.64.248.147:18090/#/?usertoken=123456',
+        mynews:'http://134.64.248.147:18090/#/mynews',
        
     };
     
