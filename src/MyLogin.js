@@ -26,7 +26,7 @@ export default class MyLogin extends React.Component {
         let data = {
             "usertoken": "123456"
         }
-        window.location.href = AppGlobal.url.index + '?usertoken=123456'
+        // window.location.href = AppGlobal.url.index + '?usertoken=123456'
     }
 
     render() {

@@ -22,19 +22,21 @@ class MyTabs extends React.Component {
   componentDidMount() {
     let self = this;
     let data = {
-      "ban_kuai": this.props.ban_kuai
+      "s":"0",
+      "c":"testService",
+      "m": "rd_xia_zai_tabs_by_ban_kuai"
     }
     axios({
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       method: 'post',
-      url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_tabs_by_ban_kuai',
+      url: AppGlobal.url.rd_xia_zai_tabs_by_ban_kuai,
       data: Qs.stringify(data)
     }).then(function (response) {
       console.log(response)
       self.setState({
-        tabs_list_data: response.data
+        tabs_list_data: response.data.m
       });
     })
       .catch(function (error) {
@@ -96,44 +98,44 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    let self = this;
-    try {
-      const search = this.props.location.search;
-      const params = new URLSearchParams(search);
-      console.log(params)
-      let data = {
-        "usertoken": params.get('usertoken')
-      }
-      axios({
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        method: 'post',
-        url: AppGlobal.url.getUserInfo,
-        data: Qs.stringify(data)
-      }).then(function (response) {
-        console.log(response)
-        if (response.data.username === '') {
-          window.location.href = AppGlobal.url.login
-        } else {
-          self.setState({
-            username: response.data.username,
-            userphone: response.data.userphone,
-            userrole: response.data.userrole,
-            mainid: response.data.mainid,
-            type1: response.data.type1,
-            type2: response.data.type2,
-            type3: response.data.type3,
-          })
-        }
-      })
-        .catch(function (error) {
-          console.log(error);
-        });
+    // let self = this;
+    // try {
+    //   const search = this.props.location.search;
+    //   const params = new URLSearchParams(search);
+    //   console.log(params)
+    //   let data = {
+    //     "usertoken": params.get('usertoken')
+    //   }
+    //   axios({
+    //     headers: {
+    //       'Content-Type': 'application/x-www-form-urlencoded'
+    //     },
+    //     method: 'post',
+    //     url: AppGlobal.url.getUserInfo,
+    //     data: Qs.stringify(data)
+    //   }).then(function (response) {
+    //     console.log(response)
+    //     if (response.data.username === '') {
+    //       window.location.href = AppGlobal.url.login
+    //     } else {
+    //       self.setState({
+    //         username: response.data.username,
+    //         userphone: response.data.userphone,
+    //         userrole: response.data.userrole,
+    //         mainid: response.data.mainid,
+    //         type1: response.data.type1,
+    //         type2: response.data.type2,
+    //         type3: response.data.type3,
+    //       })
+    //     }
+    //   })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
 
-    } catch (e) {
-      window.location.href = AppGlobal.url.login
-    }
+    // } catch (e) {
+    //   window.location.href = AppGlobal.url.login
+    // }
 
   }
 

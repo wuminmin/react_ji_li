@@ -27,7 +27,10 @@ class MyMenu extends React.Component {
     componentDidMount() {
         let self = this;
         let data = {
-            "type": this.props.lan_mu
+            "s":"0",
+            "c":"testService",
+            "m": "rd_xia_zai_by_lan_mu",
+            "data":{"lan_mu":this.props.lan_mu}
         }
         axios({
             headers: {
@@ -39,7 +42,7 @@ class MyMenu extends React.Component {
         }).then(function (response) {
             console.log(response)
             self.setState({
-                菜单列表: response.data
+                菜单列表: response.data.m
             });
         })
             .catch(function (error) {

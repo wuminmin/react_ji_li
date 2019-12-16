@@ -48,17 +48,17 @@ export default class MyHeader extends React.Component {
         const menu2 = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=营销活动&lan_mu=已发布&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=营销活动&lan_mu=已发布&tittle=默认">
                         已发布
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=营销活动&lan_mu=兑现中&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=营销活动&lan_mu=兑现中&tittle=默认">
                         兑现中
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=营销活动&lan_mu=已归档&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=营销活动&lan_mu=已归档&tittle=默认">
                         已归档
         </a>
                 </Menu.Item>
@@ -77,7 +77,7 @@ export default class MyHeader extends React.Component {
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=活动管理&lan_mu=活动归档&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管理&lan_mu=活动归档&tittle=默认">
                         活动归档
         </a>
                 </Menu.Item>
@@ -91,12 +91,12 @@ export default class MyHeader extends React.Component {
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=我的激励&lan_mu=历史激励&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=我的激励&lan_mu=历史激励&tittle=默认">
                         历史激励
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=我的激励&lan_mu=汇总统计&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=我的激励&lan_mu=汇总统计&tittle=默认">
                         汇总统计
         </a>
                 </Menu.Item>
@@ -105,17 +105,17 @@ export default class MyHeader extends React.Component {
         const menu5 = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=活动管控&lan_mu=公司领导&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管控&lan_mu=公司领导&tittle=默认">
                         公司领导
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=活动管控&lan_mu=县区主任&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管控&lan_mu=县区主任&tittle=默认">
                         县区主任
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/mynews?ban_kuai=活动管控&lan_mu=营业部主任&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管控&lan_mu=营业部主任&tittle=默认">
                         营业部主任
         </a>
                 </Menu.Item>

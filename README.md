@@ -7,14 +7,28 @@ npm install cross-env -g
     //...
 }
 
-============================================
-商业转载请联系获得授权，非商业转载请注明出处
-作者：苏南大叔 【京城，非著名互联网从业人员】
-来源：https://newsn.net/say/create-react-app-port.html
-打赏：https://newsn.net/shang.html
-加群：https://newsn.net/group.html
-============================================
-欢迎转发/打赏/点赞/留言，感谢您的支持！
+http://localhost:8080/sso/index.html?res=test#
+test
+A1c3e5g7!
+
+
+智慧工作接口
+http://134.64.116.90:8101/smartservice/get.login?c=msgPushService&m=addMsgInfo
+
+data={
+	"appCode": "latnpublic566",
+	"appToken": "249586FC39A7A1F2DA319E54AFB699B8F50A9E2C23B837E8DEC46EC34F7109A1B390230EC37E171155E0AC85A7A8869F",
+	"pushUserInfo": "['115775']",
+	"startType": "100",
+	"title": "123",
+	"pushType": "1",
+	"message": "123456678",
+	"isPush": "0",
+	"pushContent": "1234qqqqqqqqqqqqqqqqqqqqq",
+	"pushTime": "2019-12-13 15:10:10"
+}
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

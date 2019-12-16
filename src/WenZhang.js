@@ -98,7 +98,10 @@ export default class WenZhang extends React.Component {
         let self = this;
         try {
             let data = {
-                "usertoken": new URLSearchParams(this.props.location.search).get('usertoken')
+                "s":"0",
+                "c":"testService",
+                "m": "rd_xia_zai_by_lan_mu",
+                "data":{"usertoken":new URLSearchParams(this.props.location.search).get('usertoken')}
             }
             axios({
                 headers: {
@@ -113,13 +116,13 @@ export default class WenZhang extends React.Component {
                     // window.location.href = AppGlobal.url.login
                 } else {
                     self.setState({
-                        username: response.data.username,
-                        userphone: response.data.userphone,
-                        userrole: response.data.userrole,
-                        mainid: response.data.mainid,
-                        type1: response.data.type1,
-                        type2: response.data.type2,
-                        type3: response.data.type3,
+                        username: response.data.m.username,
+                        userphone: response.data.m.userphone,
+                        userrole: response.data.m.userrole,
+                        mainid: response.data.m.mainid,
+                        type1: response.data.m.type1,
+                        type2: response.data.m.type2,
+                        type3: response.data.m.type3,
                     })
                 }
             })
@@ -192,22 +195,27 @@ export default class WenZhang extends React.Component {
                             onClick={e => {
                                 let self = this;
                                 let data = {
-                                    "article": self.state.outputHTML,
-                                    "tittle": self.state.tittle,
-                                    "type": self.state.type,
-                                    "now": moment().format('YYYY-MM-DD HH:mm:ss')
+                                    "s":"0",
+                                    "c":"testService",
+                                    "m": "rd_xia_zai_by_lan_mu",
+                                    "data":{
+                                        "article": self.state.outputHTML,
+                                        "tittle": self.state.tittle,
+                                        "type": self.state.type,
+                                        "now": moment().format('YYYY-MM-DD HH:mm:ss')
+                                    }
                                 }
                                 axios({
                                     headers: {
                                         'Content-Type': 'application/x-www-form-urlencoded'
                                     },
                                     method: 'post',
-                                    url: 'https://wx.wuminmin.top/jilizhushou/rd_updata',
+                                    url: AppGlobal.url.rd_updata,
                                     data: Qs.stringify(data)
                                 }).then(function (response) {
                                     console.log(response)
                                     self.setState({
-                                        myHTML: response.data
+                                        myHTML: response.data.m
                                     });
                                 })
                                     .catch(function (error) {

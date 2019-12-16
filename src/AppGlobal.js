@@ -21,8 +21,8 @@ class AppGlobal {
         django:'https://wx.wuminmin.top/jilizhushou',
         upload:'https://wx.wuminmin.top/jilizhushou/upload',
         get_tittle_list:'https://wx.wuminmin.top/jilizhushou/get_tittle_list',
-        getUserInfo:'https://wx.wuminmin.top/jilizhushou/get_user_info',
-        rd_xia_zai_by_lan_mu:'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_lan_mu',
+        // getUserInfo:'https://wx.wuminmin.top/jilizhushou/get_user_info',
+        // rd_xia_zai_by_lan_mu:'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_lan_mu',
         rd_xia_zai_by_tittle:'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_tittle',
         que_ren_by_sellid:'https://wx.wuminmin.top/jilizhushou/que_ren_by_sellid',
 
@@ -35,12 +35,18 @@ class AppGlobal {
         // mynews:'http://134.64.248.147:18090/#/mynews',
 
         index:'',
-        login:'/#/login',
+        login:'/sso/index.html?res=test',
         wenzhang:'/#/wenzhang',
         duixian: '/#/duixian',
         queren:'/#/queren',
         myurl2:'/#/?usertoken=123456',
-        mynews:'/#/mynews',
+        mynews:'/mynews#/',
+
+        rd_xia_zai_tabs_by_ban_kuai:'/ji_li_zhu_shou/get.data',
+        rd_xia_zai_by_lan_mu:'/ji_li_zhu_shou/get.data',
+        getUserInfo:'/ji_li_zhu_shou/get.data',
+        rd_updata:'/ji_li_zhu_shou/get.data',
+
        
     };
     
