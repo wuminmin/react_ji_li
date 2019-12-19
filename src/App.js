@@ -25,14 +25,14 @@ class MyTabs extends React.Component {
       "s":"0",
       "c":"testService",
       "m": "rd_xia_zai_tabs_by_ban_kuai",
-      "data":this.state.ban_kuai
+    "data":{"ban_kuai":this.state.ban_kuai}
     }
     axios({
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       method: 'post',
-      url: AppGlobal.url.rd_xia_zai_tabs_by_ban_kuai,
+      url: AppGlobal.url.java_get_data,
       data: Qs.stringify(data)
     }).then(function (response) {
       console.log(response)
@@ -99,44 +99,49 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    // let self = this;
-    // try {
-    //   const search = this.props.location.search;
-    //   const params = new URLSearchParams(search);
-    //   console.log(params)
-    //   let data = {
-    //     "usertoken": params.get('usertoken')
-    //   }
-    //   axios({
-    //     headers: {
-    //       'Content-Type': 'application/x-www-form-urlencoded'
-    //     },
-    //     method: 'post',
-    //     url: AppGlobal.url.getUserInfo,
-    //     data: Qs.stringify(data)
-    //   }).then(function (response) {
-    //     console.log(response)
-    //     if (response.data.username === '') {
-    //       window.location.href = AppGlobal.url.login
-    //     } else {
-    //       self.setState({
-    //         username: response.data.username,
-    //         userphone: response.data.userphone,
-    //         userrole: response.data.userrole,
-    //         mainid: response.data.mainid,
-    //         type1: response.data.type1,
-    //         type2: response.data.type2,
-    //         type3: response.data.type3,
-    //       })
-    //     }
-    //   })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
+    let self = this;
+    try {
+      const search = this.props.location.search;
+      const params = new URLSearchParams(search);
+      console.log(params)
+      let data = {
+        "s":"0",
+        "c":"testService",
+        "m": "getUserInfo",
+        "data":{
+          "usertoken": params.get('usertoken')
+        }
+      }
+      axios({
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        method: 'post',
+        url: AppGlobal.url.java_get_data,
+        data: Qs.stringify(data)
+      }).then(function (response) {
+        console.log(response)
+        if (response.data.m.username === '') {
+          window.location.href = AppGlobal.url.login
+        } else {
+          self.setState({
+            username: response.data.m.username,
+            userphone: response.data.m.userphone,
+            userrole: response.data.m.userrole,
+            mainid: response.data.m.mainid,
+            type1: response.data.m.type1,
+            type2: response.data.m.type2,
+            type3: response.data.m.type3,
+          })
+        }
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-    // } catch (e) {
-    //   window.location.href = AppGlobal.url.login
-    // }
+    } catch (e) {
+      window.location.href = AppGlobal.url.login
+    }
 
   }
 

@@ -40,28 +40,32 @@ export default class Daoru extends React.Component {
             const params = new URLSearchParams(search);
             console.log(params)
             let data = {
-                "usertoken": params.get('usertoken')
+                "s":"0",
+                "c":"testService",
+                "m": "getUserInfo",
+              "data":{  "usertoken": params.get('usertoken') }
+               
             }
             axios({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 method: 'post',
-                url: AppGlobal.url.getUserInfo,
+                url: AppGlobal.url.java_get_data,
                 data: Qs.stringify(data)
             }).then(function (response) {
                 console.log(response)
-                if (response.data.username === '') {
+                if (response.data.m.username === '') {
                     // window.location.href = AppGlobal.url.login
                 } else {
                     self.setState({
-                        username: response.data.username,
-                        userphone: response.data.userphone,
-                        userrole: response.data.userrole,
-                        mainid: response.data.mainid,
-                        lan_mu1: response.data.lan_mu1,
-                        lan_mu2: response.data.lan_mu2,
-                        lan_mu3: response.data.lan_mu3,
+                        username: response.data.m.username,
+            userphone: response.data.m.userphone,
+            userrole: response.data.m.userrole,
+            mainid: response.data.m.mainid,
+            type1: response.data.m.type1,
+            type2: response.data.m.type2,
+            type3: response.data.m.type3,
                     })
                 }
             })
@@ -70,19 +74,24 @@ export default class Daoru extends React.Component {
                 });
 
             let data2 = {
-                "lan_mu":self.state.lan_mu
+                "s":"0",
+                "c":"testService",
+                "m": "rd_xia_zai_by_lan_mu",
+                "data":{
+                    "lan_mu":self.state.lan_mu
+                }
             }
             axios({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 method: 'post',
-                url: AppGlobal.url.rd_xia_zai_by_lan_mu,
+                url: AppGlobal.url.java_get_data,
                 data: Qs.stringify(data2)
             }).then(function (response) {
                 console.log(response)
                 self.setState({
-                    菜单列表: response.data
+                    菜单列表: response.data.m
                 });
             })
                 .catch(function (error) {
@@ -103,8 +112,14 @@ export default class Daoru extends React.Component {
         console.log('click ', e.key);
         let self = this;
         let data = {
-            "tittle": e.key,
-            "usertoken":self.state.usertoken
+            "s":"0",
+            "c":"testService",
+            "m": "get_tables_by_tittle",
+            "data":{
+                "tittle": e.key,
+                "usertoken":self.state.usertoken
+            }
+            
         }
         self.setState({tittle:e.key})
         axios({
@@ -112,12 +127,12 @@ export default class Daoru extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/jilizhushou/get_tables_by_tittle',
+            url: AppGlobal.url.java_get_data,
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
             self.setState({
-                活动详单: response.data
+                活动详单: response.data.m
             });
 
         })
@@ -129,8 +144,15 @@ export default class Daoru extends React.Component {
     render() {
         const props = {
             name: 'file',
-            action: AppGlobal.url.upload,
-            data:{usertoken:this.state.usertoken,tittle:this.state.tittle},
+            action: AppGlobal.url.java_get_data,
+            data:{
+                s:"0",
+                c:"testService",
+                m: "upload",
+                data:{
+                    usertoken:this.state.usertoken,tittle:this.state.tittle
+                }
+            },
             headers: {
                 authorization: 'authorization-text',
             },

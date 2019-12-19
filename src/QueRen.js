@@ -79,15 +79,21 @@ class MyTables extends React.Component {
                                     console.log(record.age);
                                     let self = this;
                                     let data = {
-                                        "sellid": record.age,
-                                        "usertoken": self.state.usertoken
+                                        "s": "0",
+                                        "c": "testService",
+                                        "m": "que_ren_by_sellid",
+                                        "data": {
+                                            "sellid": record.age,
+                                            "usertoken": self.state.usertoken
+                                        }
+
                                     }
                                     axios({
                                         headers: {
                                             'Content-Type': 'application/x-www-form-urlencoded'
                                         },
                                         method: 'post',
-                                        url: AppGlobal.url.que_ren_by_sellid,
+                                        url: AppGlobal.url.java_get_data,
                                         data: Qs.stringify(data)
                                     }).then(function (response) {
                                         console.log(response)
@@ -99,7 +105,7 @@ class MyTables extends React.Component {
                                             console.log(error);
                                         });
 
-                                        
+
                                 }}
                                 onCancel={(record) => { this.handleCancel(record) }}
                             >
@@ -110,7 +116,7 @@ class MyTables extends React.Component {
                     ),
                 },
             ],
-            usertoken:this.props.usertoken,
+            usertoken: this.props.usertoken,
 
         }
         console.log('constructor(props)', this.props.活动详单)
@@ -144,7 +150,7 @@ class MyTables extends React.Component {
     }
 }
 
-export default class DuiXian extends React.Component {
+export default class QueRen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -178,14 +184,18 @@ export default class DuiXian extends React.Component {
             const params = new URLSearchParams(search);
             console.log(params)
             let data = {
-                "usertoken": params.get('usertoken')
+                "s":"0",
+                "c":"testService",
+                "m": "getUserInfo",
+              "data":{ "usertoken": params.get('usertoken') }
+                
             }
             axios({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 method: 'post',
-                url: AppGlobal.url.getUserInfo,
+                url: AppGlobal.url.java_get_data,
                 data: Qs.stringify(data)
             }).then(function (response) {
                 console.log(response)
@@ -208,19 +218,23 @@ export default class DuiXian extends React.Component {
                 });
 
             let data2 = {
-                "type": self.state.type
+                "s":"0",
+                "c":"testService",
+                "m": "rd_xia_zai_by_lan_mu",
+              "data":{  "type": self.state.type  }
+               
             }
             axios({
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 method: 'post',
-                url: AppGlobal.url.rd_xia_zai_by_lan_mu,
+                url: AppGlobal.url.java_get_data,
                 data: Qs.stringify(data2)
             }).then(function (response) {
                 console.log(response)
                 self.setState({
-                    菜单列表: response.data
+                    菜单列表: response.data.m
                 });
             })
                 .catch(function (error) {
@@ -241,15 +255,19 @@ export default class DuiXian extends React.Component {
         console.log('click ', e.key);
         let self = this;
         let data = {
-            "tittle": e.key,
-            "usertoken": self.state.usertoken
+            "s":"0",
+            "c":"testService",
+            "m": "get_tables_by_tittle",
+          "data":{  "tittle": e.key,
+          "usertoken": self.state.usertoken  }
+           
         }
         axios({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/jilizhushou/get_tables_by_tittle',
+            url: AppGlobal.url.java_get_data,
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
@@ -276,7 +294,7 @@ export default class DuiXian extends React.Component {
                             style={{
                                 border: '1px solid rgb(235, 237, 240)',
                             }}
-                            onBack={() => { window.location = AppGlobal.url.index + '?usertoken=' + this.state.usertoken }}
+                            onBack={() => { window.location = AppGlobal.url.首页 }}
                             title={new URLSearchParams(this.props.location.search).get('ban_kuai')}
                             subTitle={new URLSearchParams(this.props.location.search).get('lan_mu')}
                         />,
@@ -311,7 +329,7 @@ export default class DuiXian extends React.Component {
                     </Col>
                     <Col span={2}></Col>
                     <Col span={18}>
-                        <MyTables  usertoken={this.state.usertoken} 活动详单={this.state.活动详单} handleClick={this.handleClick.bind(this)}></MyTables>
+                        <MyTables usertoken={this.state.usertoken} 活动详单={this.state.活动详单} handleClick={this.handleClick.bind(this)}></MyTables>
                     </Col>
                 </Row>
             </div>

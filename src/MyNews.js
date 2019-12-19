@@ -37,7 +37,7 @@ class MyMenu extends React.Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: AppGlobal.url.rd_xia_zai_by_lan_mu,
+            url: AppGlobal.url.java_get_data,
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
@@ -49,84 +49,58 @@ class MyMenu extends React.Component {
                 console.log(error);
             });
 
-        let data2 = {
-            "ban_kuai": this.props.ban_kuai,
-            "lan_mu": this.props.lan_mu,
-            "tittle": this.props.my_tittle
-        }
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            method: 'post',
-            url: AppGlobal.url.rd_xia_zai_by_tittle,
-            data: Qs.stringify(data2)
-        }).then(function (response) {
-            console.log(response)
-            self.setState({
-                myHTML_article: response.data
-            });
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            method: 'post',
-            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_time_by_tittle',
-            data: Qs.stringify(data2)
-        }).then(function (response) {
-            console.log(response)
-            self.setState({
-                myHTML_tittle: response.data['tittle'],
-                myHTML_time: response.data['my_time']
-            });
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+        
     }
 
     handleClick = e => {
         console.log('click ', e.key);
         let self = this;
         let data = {
-            "ban_kuai": this.props.ban_kuai,
+            "s":"0",
+            "c":"testService",
+            "m": "rd_xia_zai_by_tittle",
+            "data":{"ban_kuai": this.props.ban_kuai,
             "lan_mu": this.props.lan_mu,
-            "tittle": e.key
+            "tittle": e.key}
         }
         axios({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_by_tittle',
+            url: AppGlobal.url.java_get_data,
             data: Qs.stringify(data)
         }).then(function (response) {
             console.log(response)
             self.setState({
-                myHTML_article: response.data
+                myHTML_article: response.data.myHTML_article
             });
 
         })
             .catch(function (error) {
                 console.log(error);
             });
+
+            let data2 = {
+                "s":"0",
+                "c":"testService",
+                "m": "rd_xia_zai_time_by_tittle",
+                "data":{"ban_kuai": this.props.ban_kuai,
+                "lan_mu": this.props.lan_mu,
+                "tittle": e.key}
+            }
         axios({
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             method: 'post',
-            url: 'https://wx.wuminmin.top/jilizhushou/rd_xia_zai_time_by_tittle',
-            data: Qs.stringify(data)
+            url: AppGlobal.url.java_get_data,
+            data: Qs.stringify(data2)
         }).then(function (response) {
             console.log(response)
             self.setState({
                 myHTML_tittle: response.data['tittle'],
-                myHTML_time: response.data['my_time']
+                myHTML_time: response.data.my_time
             });
         })
             .catch(function (error) {
@@ -228,10 +202,7 @@ export default class MyNews extends React.Component {
                     <Col span={2}></Col>
                 </Row> */}
                 <MyMenu ban_kuai={params.get('ban_kuai')} lan_mu={params.get('lan_mu')} my_tittle={params.get('tittle')}></MyMenu>
-
                 <MyFooter></MyFooter>
-
-
             </div>
         );
     }

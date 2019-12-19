@@ -100,7 +100,7 @@ export default class WenZhang extends React.Component {
             let data = {
                 "s":"0",
                 "c":"testService",
-                "m": "rd_xia_zai_by_lan_mu",
+                "m": "getUserInfo",
                 "data":{"usertoken":new URLSearchParams(this.props.location.search).get('usertoken')}
             }
             axios({
@@ -108,7 +108,7 @@ export default class WenZhang extends React.Component {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 method: 'post',
-                url: AppGlobal.url.getUserInfo,
+                url: AppGlobal.url.java_get_data,
                 data: Qs.stringify(data)
             }).then(function (response) {
                 console.log(response)
@@ -197,11 +197,11 @@ export default class WenZhang extends React.Component {
                                 let data = {
                                     "s":"0",
                                     "c":"testService",
-                                    "m": "rd_xia_zai_by_lan_mu",
+                                    "m": "rd_updata",
                                     "data":{
                                         "article": self.state.outputHTML,
                                         "tittle": self.state.tittle,
-                                        "type": self.state.type,
+                                        "mylan_mu": self.state.type,
                                         "now": moment().format('YYYY-MM-DD HH:mm:ss')
                                     }
                                 }
@@ -210,7 +210,7 @@ export default class WenZhang extends React.Component {
                                         'Content-Type': 'application/x-www-form-urlencoded'
                                     },
                                     method: 'post',
-                                    url: AppGlobal.url.rd_updata,
+                                    url: AppGlobal.url.java_get_data,
                                     data: Qs.stringify(data)
                                 }).then(function (response) {
                                     console.log(response)

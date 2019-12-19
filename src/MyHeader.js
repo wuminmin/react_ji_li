@@ -18,10 +18,6 @@ export default class MyHeader extends React.Component {
             myHTML: '',
             ban_kuai: '',
             lan_mu: '',
-            首页:AppGlobal.url.index+'?usertoken='+this.props.usertoken,
-            发布激励:AppGlobal.url.wenzhang+'?usertoken='+this.props.usertoken+'&ban_kuai=活动管理&lan_mu=发布激励&tittle=默认',
-            兑现激励:AppGlobal.url.duixian+'?usertoken='+this.props.usertoken+'&ban_kuai=活动管理&lan_mu=兑现激励&tittle=默认',
-            确认激励:AppGlobal.url.queren+'?usertoken='+this.props.usertoken+'&ban_kuai=我的激励&lan_mu=确认激励&tittle=默认',
         }
       }
 
@@ -39,7 +35,7 @@ export default class MyHeader extends React.Component {
         const menu = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href={this.state.首页}>
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.首页}>
                         首页
         </a>
                 </Menu.Item>
@@ -48,17 +44,17 @@ export default class MyHeader extends React.Component {
         const menu2 = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=营销活动&lan_mu=已发布&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.已发布}>
                         已发布
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=营销活动&lan_mu=兑现中&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.兑现中}>
                         兑现中
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=营销活动&lan_mu=已归档&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.已归档}>
                         已归档
         </a>
                 </Menu.Item>
@@ -67,17 +63,17 @@ export default class MyHeader extends React.Component {
         const menu3 = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href={this.state.发布激励}>
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.发布激励}>
                         发布激励
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href={this.state.兑现激励}>
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.兑现激励}>
                         兑现激励
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管理&lan_mu=活动归档&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.活动归档}>
                         活动归档
         </a>
                 </Menu.Item>
@@ -86,17 +82,17 @@ export default class MyHeader extends React.Component {
         const menu4 = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href={this.state.确认激励}>
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.确认激励}>
                         确认激励
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=我的激励&lan_mu=历史激励&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.历史激励}>
                         历史激励
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=我的激励&lan_mu=汇总统计&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.汇总统计}>
                         汇总统计
         </a>
                 </Menu.Item>
@@ -105,66 +101,18 @@ export default class MyHeader extends React.Component {
         const menu5 = (
             <Menu>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管控&lan_mu=公司领导&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.公司领导}>
                         公司领导
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管控&lan_mu=县区主任&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.县区主任}>
                         县区主任
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/#/mynews?ban_kuai=活动管控&lan_mu=营业部主任&tittle=默认">
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.营业部主任}>
                         营业部主任
-        </a>
-                </Menu.Item>
-            </Menu>
-        );
-        const menu6 = (
-            <Menu>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.ahqy.gov.cn/">
-                        人民政府
-        </a>
-                </Menu.Item>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.jjw.gov.cn/">
-                        监察委员会
-        </a>
-                </Menu.Item>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://czqyfy.chinacourt.gov.cn/index.shtml">
-                        人民法院
-        </a>
-                </Menu.Item>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.ahqingyang.jcy.gov.cn/">
-                        人民检察院
-        </a>
-                </Menu.Item>
-            </Menu>
-        );
-        const menu7 = (
-            <Menu>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/">
-                        蓉城镇
-        </a>
-                </Menu.Item>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/">
-                        庙前镇
-        </a>
-                </Menu.Item>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/">
-                        杜村乡
-        </a>
-                </Menu.Item>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="/">
-                        新河镇
         </a>
                 </Menu.Item>
             </Menu>
