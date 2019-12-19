@@ -24,7 +24,8 @@ class MyTabs extends React.Component {
     let data = {
       "s":"0",
       "c":"testService",
-      "m": "rd_xia_zai_tabs_by_ban_kuai"
+      "m": "rd_xia_zai_tabs_by_ban_kuai",
+      "data":this.state.ban_kuai
     }
     axios({
       headers: {
