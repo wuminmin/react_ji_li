@@ -4,7 +4,9 @@ import axios from 'axios'
 import MyHeader from './MyHeader';
 import { Carousel, Layout, Menu, Breadcrumb, Icon, Row, Col, Dropdown, Button, Tag, PageHeader, Tabs, List } from 'antd';
 import MyFooter from './MyFooter';
-import AppGlobal from './AppGlobal'
+import AppGlobal from './AppGlobal';
+import CommonMethod from './commonMethod';
+
 
 class MyTabs extends React.Component {
   constructor(props) {
@@ -21,28 +23,23 @@ class MyTabs extends React.Component {
 
   componentDidMount() {
     let self = this;
-    let data = {
-      "s":"0",
-      "c":"testService",
-      "m": "rd_xia_zai_tabs_by_ban_kuai",
-    "data":{"ban_kuai":this.state.ban_kuai}
-    }
-    axios({
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+    CommonMethod.sendData({
+      url: AppGlobal.url.java_url,
+      code: 'testService',
+      method: 'rd_xia_zai_tabs_by_ban_kuai',
+      isLogin: false,
+      message: { ban_kuai: this.state.ban_kuai },
+      successFunc: function (response) {
+        console.log(response);
+        self.setState({
+          tabs_list_data: response
+        });
       },
-      method: 'post',
-      url: AppGlobal.url.java_get_data,
-      data: Qs.stringify(data)
-    }).then(function (response) {
-      console.log(response)
-      self.setState({
-        tabs_list_data: response.data.m
-      });
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
+      errorFunc: function (e) {
+        console.log(e);
+      },
+      encode: true
+    });
   }
 
   render() {
@@ -83,7 +80,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      usertoken: new URLSearchParams(this.props.location.search).get('usertoken') ,
+      usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
       username: '',
       userphone: '',
       userrole: '',
@@ -100,49 +97,29 @@ export default class App extends React.Component {
 
   componentDidMount() {
     let self = this;
-    try {
-      const search = this.props.location.search;
-      const params = new URLSearchParams(search);
-      console.log(params)
-      let data = {
-        "s":"0",
-        "c":"testService",
-        "m": "getUserInfo",
-        "data":{
-          "usertoken": params.get('usertoken')
-        }
-      }
-      axios({
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        method: 'post',
-        url: AppGlobal.url.java_get_data,
-        data: Qs.stringify(data)
-      }).then(function (response) {
-        console.log(response)
-        if (response.data.m.username === '') {
-          window.location.href = AppGlobal.url.login
-        } else {
-          self.setState({
-            username: response.data.m.username,
-            userphone: response.data.m.userphone,
-            userrole: response.data.m.userrole,
-            mainid: response.data.m.mainid,
-            type1: response.data.m.type1,
-            type2: response.data.m.type2,
-            type3: response.data.m.type3,
-          })
-        }
-      })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-    } catch (e) {
-      window.location.href = AppGlobal.url.login
-    }
-
+    CommonMethod.sendData({
+      url: AppGlobal.url.java_url,
+      code: 'testService',
+      method: 'xia_zai_yong_hu_xin_xi',
+      isLogin: false,
+      message: {},
+      successFunc: function (response) {
+        console.log(response);
+        self.setState({
+          username: response.username,
+          userphone: response.userphone,
+          userrole: response.userrole,
+          mainid: response.mainid,
+          type1: response.type1,
+          type2: response.type2,
+          type3: response.type3,
+        })
+      },
+      errorFunc: function (e) {
+        console.log(e);
+      },
+      encode: true
+    });
   }
 
   render() {

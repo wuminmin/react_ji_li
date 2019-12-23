@@ -1,13 +1,13 @@
 import { Layout, Menu, Breadcrumb, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
-// import Carousel from 'nuka-carousel';
-import React from 'react'
-import Qs from 'qs'
-import axios from 'axios'
+import React from 'react';
+import Qs from 'qs';
+import axios from 'axios';
 import 'antd/dist/antd.css';
 import './index.css';
-import MyHeader from './MyHeader'
-import MyFooter from './MyFooter'
-import AppGlobal from './AppGlobal'
+import MyHeader from './MyHeader';
+import MyFooter from './MyFooter';
+import AppGlobal from './AppGlobal';
+import CommonMethod from './commonMethod';
 const { SubMenu } = Menu;
 
 class MyMenu extends React.Component {
@@ -26,86 +26,52 @@ class MyMenu extends React.Component {
 
     componentDidMount() {
         let self = this;
-        let data = {
-            "s":"0",
-            "c":"testService",
-            "m": "rd_xia_zai_by_lan_mu",
-            "data":{"lan_mu":this.props.lan_mu}
-        }
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'rd_xia_zai_by_lan_mu',
+            isLogin: false,
+            message: { "ban_kuai":this.props.ban_kuai ,"lan_mu": this.props.lan_mu ,"my_tittle":this.props.my_tittle },
+            successFunc: function (response) {
+                console.log(response);
+                self.setState({
+                    菜单列表: response
+                });
             },
-            method: 'post',
-            url: AppGlobal.url.java_get_data,
-            data: Qs.stringify(data)
-        }).then(function (response) {
-            console.log(response)
-            self.setState({
-                菜单列表: response.data.m
-            });
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
     }
 
     handleClick = e => {
         console.log('click ', e.key);
         let self = this;
-        let data = {
-            "s":"0",
-            "c":"testService",
-            "m": "rd_xia_zai_by_tittle",
-            "data":{"ban_kuai": this.props.ban_kuai,
-            "lan_mu": this.props.lan_mu,
-            "tittle": e.key}
-        }
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            method: 'post',
-            url: AppGlobal.url.java_get_data,
-            data: Qs.stringify(data)
-        }).then(function (response) {
-            console.log(response)
-            self.setState({
-                myHTML_article: response.data.myHTML_article
-            });
-
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-            let data2 = {
-                "s":"0",
-                "c":"testService",
-                "m": "rd_xia_zai_time_by_tittle",
-                "data":{"ban_kuai": this.props.ban_kuai,
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'myHTML_article_tittle_my_time',
+            isLogin: false,
+            message: {
+                "ban_kuai": this.props.ban_kuai,
                 "lan_mu": this.props.lan_mu,
-                "tittle": e.key}
-            }
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                "tittle": e.key
             },
-            method: 'post',
-            url: AppGlobal.url.java_get_data,
-            data: Qs.stringify(data2)
-        }).then(function (response) {
-            console.log(response)
-            self.setState({
-                myHTML_tittle: response.data['tittle'],
-                myHTML_time: response.data.my_time
-            });
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+            successFunc: function (response) {
+                console.log(response);
+                self.setState({
+                    myHTML_article: response.myHTML_article,
+                    myHTML_tittle: response.myHTML_tittle,
+                    myHTML_time: response.myHTML_time
+                });
+              
+            },
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
     };
 
     render() {
@@ -195,12 +161,6 @@ export default class MyNews extends React.Component {
         return (
             <div>
                 <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken')}></MyHeader>
-                {/* <Row>
-                    <Col span={2}></Col>
-                    <Col span={20}>
-                    </Col>
-                    <Col span={2}></Col>
-                </Row> */}
                 <MyMenu ban_kuai={params.get('ban_kuai')} lan_mu={params.get('lan_mu')} my_tittle={params.get('tittle')}></MyMenu>
                 <MyFooter></MyFooter>
             </div>

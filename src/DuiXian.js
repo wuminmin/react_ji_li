@@ -1,12 +1,14 @@
-import 'braft-editor/dist/index.css'
-import React from 'react'
-import BraftEditor from 'braft-editor'
-import axios from 'axios'
-import Qs from 'qs'
-import moment from 'moment'
+import 'braft-editor/dist/index.css';
+import React from 'react';
+import BraftEditor from 'braft-editor';
+import axios from 'axios';
+import Qs from 'qs';
+import moment from 'moment';
 import { Menu, Table, Divider, Upload, message, Select, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
-import MyHeader from './MyHeader'
-import AppGlobal from './AppGlobal'
+import MyHeader from './MyHeader';
+import AppGlobal from './AppGlobal';
+import CommonMethod from './commonMethod';
+
 const { SubMenu } = Menu;
 
 export default class DuiXian extends React.Component {
@@ -17,7 +19,6 @@ export default class DuiXian extends React.Component {
         ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
         my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
         tittle: '',
-        type: '已发布',
         usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
@@ -35,71 +36,47 @@ export default class DuiXian extends React.Component {
     componentDidMount() {
         this.isLivinig = true
         let self = this;
-        try {
-            const search = this.props.location.search;
-            const params = new URLSearchParams(search);
-            console.log(params)
-            let data = {
-                "s":"0",
-                "c":"testService",
-                "m": "getUserInfo",
-              "data":{  "usertoken": params.get('usertoken') }
-               
-            }
-            axios({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                method: 'post',
-                url: AppGlobal.url.java_get_data,
-                data: Qs.stringify(data)
-            }).then(function (response) {
-                console.log(response)
-                if (response.data.m.username === '') {
-                    // window.location.href = AppGlobal.url.login
-                } else {
-                    self.setState({
-                        username: response.data.m.username,
-                        userphone: response.data.m.userphone,
-                        userrole: response.data.m.userrole,
-                        mainid: response.data.m.mainid,
-                        type1: response.data.m.type1,
-                        type2: response.data.m.type2,
-                        type3: response.data.m.type3,
-                    })
-                }
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'xia_zai_yong_hu_xin_xi',
+            isLogin: false,
+            message: {},
+            successFunc: function (response) {
+              console.log(response);
+              self.setState({
+                username: response.username,
+                userphone: response.userphone,
+                userrole: response.userrole,
+                mainid: response.mainid,
+                type1: response.type1,
+                type2: response.type2,
+                type3: response.type3,
+              })
+            },
+            errorFunc: function (e) {
+              console.log(e);
+            },
+            encode: true
+          });
 
-            let data2 = {
-                "s":"0",
-                "c":"testService",
-                "m": "rd_xia_zai_by_lan_mu",
-              "data":{  "type":self.state.type }
-            }
-            axios({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                method: 'post',
-                url: AppGlobal.url.java_get_data,
-                data: Qs.stringify(data2)
-            }).then(function (response) {
-                console.log(response)
+          CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'rd_xia_zai_by_lan_mu',
+            isLogin: false,
+            message: { "lan_mu":self.state.lan_mu },
+            successFunc: function (response) {
+                console.log(response);
                 self.setState({
-                    菜单列表: response.data.m
+                    菜单列表: response
                 });
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        } catch (e) {
-            console.log(e)
-            // window.location.href = AppGlobal.url.login
-        }
+            },
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
     }
 
     handleChange(value) {
@@ -109,34 +86,23 @@ export default class DuiXian extends React.Component {
     handleClick = e => {
         console.log('click ', e.key);
         let self = this;
-        let data = {
-            "s":"0",
-            "c":"testService",
-            "m": "get_tables_by_tittle",
-            "data":{
-                "tittle": e.key,
-                "usertoken":self.state.usertoken
-            }
-            
-        }
-        self.setState({tittle:e.key})
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'get_tables_by_tittle',
+            isLogin: false,
+            message: { "tittle":e.key },
+            successFunc: function (response) {
+                console.log(response);
+                self.setState({
+                    活动详单: response
+                });
             },
-            method: 'post',
-            url: AppGlobal.url.java_get_data,
-            data: Qs.stringify(data)
-        }).then(function (response) {
-            console.log(response)
-            self.setState({
-                活动详单: response.data
-            });
-
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
     };
 
     render() {

@@ -42,7 +42,7 @@ export default class Daoru extends React.Component {
             let data = {
                 "s":"0",
                 "c":"testService",
-                "m": "getUserInfo",
+                "m": "xia_zai_yong_hu_xin_xi",
               "data":{  "usertoken": params.get('usertoken') }
                
             }

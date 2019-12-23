@@ -1,78 +1,79 @@
-import 'braft-editor/dist/index.css'
-import React from 'react'
-import BraftEditor from 'braft-editor'
-import axios from 'axios'
-import Qs from 'qs'
-import moment from 'moment'
+import 'braft-editor/dist/index.css';
+import React from 'react';
+import BraftEditor from 'braft-editor';
+import axios from 'axios';
+import Qs from 'qs';
+import moment from 'moment';
 import { Select, Layout, Menu, Breadcrumb, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
-import MyHeader from './MyHeader'
-import AppGlobal from './AppGlobal'
+import MyHeader from './MyHeader';
+import AppGlobal from './AppGlobal';
+import CommonMethod from './commonMethod';
 
 import { TreeSelect } from 'antd';
 
 const { SHOW_PARENT } = TreeSelect;
 
 const treeData = [
-  {
-    title: '贵池区',
-    value: '0-0',
-    key: '0-0',
-    children: [
-      {
-        title: '秋浦营业部',
-        value: '0-0-0',
-        key: '0-0-0',
-      },
-    ],
-  },
-  {
-    title: '青阳县',
-    value: '0-1',
-    key: '0-1',
-    children: [
-      {
-        title: '蓉城营业部',
-        value: '0-1-0',
-        key: '0-1-0',
-      },
-      {
-        title: '庙前营业部',
-        value: '0-1-1',
-        key: '0-1-1',
-      },
-      {
-        title: '杜村营业部',
-        value: '0-1-2',
-        key: '0-1-2',
-      },
-    ],
-  },
+    {
+        title: '贵池区',
+        value: '0-0',
+        key: '0-0',
+        children: [
+            {
+                title: '秋浦营业部',
+                value: '0-0-0',
+                key: '0-0-0',
+            },
+        ],
+    },
+    {
+        title: '青阳县',
+        value: '0-1',
+        key: '0-1',
+        children: [
+            {
+                title: '蓉城营业部',
+                value: '0-1-0',
+                key: '0-1-0',
+            },
+            {
+                title: '庙前营业部',
+                value: '0-1-1',
+                key: '0-1-1',
+            },
+            {
+                title: '杜村营业部',
+                value: '0-1-2',
+                key: '0-1-2',
+            },
+        ],
+    },
 ];
 
 class Demo extends React.Component {
-  state = {
-    value: ['0-1-0'],
-  };
-
-  onChange = value => {
-    console.log('onChange ', value);
-    this.setState({ value });
-  };
-
-  render() {
-    const tProps = {
-      treeData,
-      value: this.state.value,
-      onChange: this.onChange,
-      treeCheckable: true,
-      showCheckedStrategy: SHOW_PARENT,
-      searchPlaceholder: 'Please select',
-      style: {
-        width: '100%',
-      },
+    state = {
+        value: ['0-1-0'],
     };
-    return <TreeSelect {...tProps} />;
-  }
+
+    onChange = value => {
+        console.log('onChange ', value);
+        this.setState({ value });
+    };
+
+    render() {
+        const tProps = {
+            treeData,
+            value: this.state.value,
+            onChange: this.onChange,
+            treeCheckable: true,
+            showCheckedStrategy: SHOW_PARENT,
+            searchPlaceholder: 'Please select',
+            style: {
+                width: '100%',
+            },
+        };
+        return <TreeSelect {...tProps} />;
+    }
 }
 
 export default class WenZhang extends React.Component {
@@ -83,7 +84,7 @@ export default class WenZhang extends React.Component {
         myHTML: '<div></div>',
         tittle: '',
         type: '已发布',
-        usertoken:new URLSearchParams(this.props.location.search).get('usertoken'),
+        usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
         userrole: '',
@@ -96,43 +97,29 @@ export default class WenZhang extends React.Component {
     componentDidMount() {
         this.isLivinig = true
         let self = this;
-        try {
-            let data = {
-                "s":"0",
-                "c":"testService",
-                "m": "getUserInfo",
-                "data":{"usertoken":new URLSearchParams(this.props.location.search).get('usertoken')}
-            }
-            axios({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                method: 'post',
-                url: AppGlobal.url.java_get_data,
-                data: Qs.stringify(data)
-            }).then(function (response) {
-                console.log(response)
-                if (response.data.username === '') {
-                    // window.location.href = AppGlobal.url.login
-                } else {
-                    self.setState({
-                        username: response.data.m.username,
-                        userphone: response.data.m.userphone,
-                        userrole: response.data.m.userrole,
-                        mainid: response.data.m.mainid,
-                        type1: response.data.m.type1,
-                        type2: response.data.m.type2,
-                        type3: response.data.m.type3,
-                    })
-                }
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        } catch (e) {
-            // window.location.href = AppGlobal.url.login
-        }
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'xia_zai_yong_hu_xin_xi',
+            isLogin: false,
+            message: {},
+            successFunc: function (response) {
+                console.log(response);
+                self.setState({
+                    username: response.username,
+                    userphone: response.userphone,
+                    userrole: response.userrole,
+                    mainid: response.mainid,
+                    type1: response.type1,
+                    type2: response.type2,
+                    type3: response.type3,
+                })
+            },
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
     }
 
     componentWillUnmount() {
@@ -160,7 +147,7 @@ export default class WenZhang extends React.Component {
 
         return (
             <div>
-                <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken') }></MyHeader>
+                <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken')}></MyHeader>
                 <Row>
                     <Col span={2}></Col>
                     <Col span={20}>
@@ -188,39 +175,34 @@ export default class WenZhang extends React.Component {
 
                         <h5>预览文章</h5>
                         <div dangerouslySetInnerHTML={{ __html: myHTML }} />
-                        <h5>选择活动对象</h5>
-                        <Demo></Demo>
+                        {/* <h5>选择活动对象</h5>
+                        <Demo></Demo> */}
                         <Button
                             type="primary"
                             onClick={e => {
                                 let self = this;
-                                let data = {
-                                    "s":"0",
-                                    "c":"testService",
-                                    "m": "rd_updata",
-                                    "data":{
+                                CommonMethod.sendData({
+                                    url: AppGlobal.url.java_url,
+                                    code: 'testService',
+                                    method: 'rd_updata',
+                                    isLogin: false,
+                                    message: {
                                         "article": self.state.outputHTML,
                                         "tittle": self.state.tittle,
                                         "mylan_mu": self.state.type,
                                         "now": moment().format('YYYY-MM-DD HH:mm:ss')
-                                    }
-                                }
-                                axios({
-                                    headers: {
-                                        'Content-Type': 'application/x-www-form-urlencoded'
                                     },
-                                    method: 'post',
-                                    url: AppGlobal.url.java_get_data,
-                                    data: Qs.stringify(data)
-                                }).then(function (response) {
-                                    console.log(response)
-                                    self.setState({
-                                        myHTML: response.data.m
-                                    });
-                                })
-                                    .catch(function (error) {
-                                        console.log(error);
-                                    });
+                                    successFunc: function (response) {
+                                        console.log(response);
+                                        self.setState({
+                                            myHTML: response
+                                        });
+                                    },
+                                    errorFunc: function (e) {
+                                        console.log(e);
+                                    },
+                                    encode: true
+                                });
                             }
                             }>上传文章</Button>
                     </Col>
