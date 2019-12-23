@@ -73,8 +73,13 @@ export default class MyHeader extends React.Component {
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.活动归档}>
-                        活动归档
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.归档激励}>
+                        归档激励
+        </a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.已归档激励}>
+                    已归档激励
         </a>
                 </Menu.Item>
             </Menu>

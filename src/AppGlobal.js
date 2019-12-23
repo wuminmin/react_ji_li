@@ -17,7 +17,8 @@ class AppGlobal {
 
         发布激励:'/ji_li_zhu_shou/#/wenzhang?ban_kuai=活动管理&lan_mu=发布激励&tittle=默认',
         兑现激励:'/ji_li_zhu_shou/#/duixian?ban_kuai=活动管理&lan_mu=兑现激励&tittle=默认',
-        活动归档:'/ji_li_zhu_shou/#/duixian?ban_kuai=活动管理&lan_mu=活动归档&tittle=默认',
+        归档激励:'/ji_li_zhu_shou/#/duixian?ban_kuai=活动管理&lan_mu=归档激励&tittle=默认',
+        已归档激励:'/ji_li_zhu_shou/#/duixian?ban_kuai=活动管理&lan_mu=已归档激励&tittle=默认',
 
         确认激励:'/ji_li_zhu_shou/#/queren?ban_kuai=我的激励&lan_mu=确认激励&tittle=默认',
         历史激励:'/ji_li_zhu_shou/#/mynews?ban_kuai=我的激励&lan_mu=历史激励&tittle=默认',

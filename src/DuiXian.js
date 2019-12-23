@@ -1,19 +1,16 @@
 import 'braft-editor/dist/index.css';
 import React from 'react';
-import BraftEditor from 'braft-editor';
-import axios from 'axios';
-import Qs from 'qs';
-import moment from 'moment';
 import { Menu, Table, Divider, Upload, message, Select, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
 import MyHeader from './MyHeader';
 import AppGlobal from './AppGlobal';
 import CommonMethod from './commonMethod';
+import ExcelReader from './ExcelReader';
 
 const { SubMenu } = Menu;
 
 export default class DuiXian extends React.Component {
     state = {
-        活动详单: [],
+        ji_li_qing_dan: [],
         菜单列表: [],
         lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
         ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
@@ -95,7 +92,8 @@ export default class DuiXian extends React.Component {
             successFunc: function (response) {
                 console.log(response);
                 self.setState({
-                    活动详单: response
+                    ji_li_qing_dan: response.ji_li_qing_dan,
+                    tittle:e.key,
                 });
             },
             errorFunc: function (e) {
@@ -146,21 +144,21 @@ export default class DuiXian extends React.Component {
                 title: '激励账期',
                 key: 'tags',
                 dataIndex: 'tags',
-                render: tags => (
-                    <span>
-                        {tags.map(tag => {
-                            let color = tag.length > 5 ? 'geekblue' : 'green';
-                            if (tag === 'loser') {
-                                color = 'volcano';
-                            }
-                            return (
-                                <Tag color={color} key={tag}>
-                                    {tag.toUpperCase()}
-                                </Tag>
-                            );
-                        })}
-                    </span>
-                ),
+                // render: tags => (
+                //     <span>
+                //         {tags.map(tag => {
+                //             let color = tag.length > 5 ? 'geekblue' : 'green';
+                //             if (tag === 'loser') {
+                //                 color = 'volcano';
+                //             }
+                //             return (
+                //                 <Tag color={color} key={tag}>
+                //                     {tag.toUpperCase()}
+                //                 </Tag>
+                //             );
+                //         })}
+                //     </span>
+                // ),
             },
             {
                 title: '银行卡',
@@ -256,13 +254,13 @@ export default class DuiXian extends React.Component {
                     </Col>
                     <Col span={2}></Col>
                     <Col span={18}>
-                        <Table columns={columns} dataSource={this.state.活动详单} />
-                        <label>上传清单:</label>
-                        <Upload {...props}>
+                        <Table columns={columns} dataSource={this.state.ji_li_qing_dan} />
+                        {/* <Upload {...props}>
                             <Button>
                                 <Icon type="upload" /> 点击上传文件
                             </Button>
-                        </Upload>
+                        </Upload> */}
+                        <ExcelReader tittle={this.state.tittle}/>
                     </Col>
                 </Row>
 

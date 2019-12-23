@@ -38,21 +38,21 @@ class MyTables extends React.Component {
                     title: '激励账期',
                     key: 'tags',
                     dataIndex: 'tags',
-                    render: tags => (
-                        <span>
-                            {tags.map(tag => {
-                                let color = tag.length > 5 ? 'geekblue' : 'green';
-                                if (tag === 'loser') {
-                                    color = 'volcano';
-                                }
-                                return (
-                                    <Tag color={color} key={tag}>
-                                        {tag.toUpperCase()}
-                                    </Tag>
-                                );
-                            })}
-                        </span>
-                    ),
+                    // render: tags => (
+                    //     <span>
+                    //         {tags.map(tag => {
+                    //             let color = tag.length > 5 ? 'geekblue' : 'green';
+                    //             if (tag === 'loser') {
+                    //                 color = 'volcano';
+                    //             }
+                    //             return (
+                    //                 <Tag color={color} key={tag}>
+                    //                     {tag.toUpperCase()}
+                    //                 </Tag>
+                    //             );
+                    //         })}
+                    //     </span>
+                    // ),
                 },
                 {
                     title: '银行卡',
@@ -86,7 +86,6 @@ class MyTables extends React.Component {
                                             "sellid": record.age,
                                             "usertoken": self.state.usertoken
                                         }
-
                                     }
                                     axios({
                                         headers: {
@@ -104,8 +103,6 @@ class MyTables extends React.Component {
                                         .catch(function (error) {
                                             console.log(error);
                                         });
-
-
                                 }}
                                 onCancel={(record) => { this.handleCancel(record) }}
                             >
@@ -117,7 +114,6 @@ class MyTables extends React.Component {
                 },
             ],
             usertoken: this.props.usertoken,
-
         }
         console.log('constructor(props)', this.props.活动详单)
     }
