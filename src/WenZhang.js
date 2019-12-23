@@ -83,7 +83,8 @@ export default class WenZhang extends React.Component {
         outputHTML: '<p></p>',
         myHTML: '<div></div>',
         tittle: '',
-        type: '已发布',
+        ban_kuai:'营销活动',
+        lan_mu: '已发布',
         usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
@@ -189,13 +190,14 @@ export default class WenZhang extends React.Component {
                                     message: {
                                         "article": self.state.outputHTML,
                                         "tittle": self.state.tittle,
-                                        "mylan_mu": self.state.type,
+                                        "ban_kuai": self.state.ban_kuai,
+                                        "lan_mu":self.state.lan_mu,
                                         "now": moment().format('YYYY-MM-DD HH:mm:ss')
                                     },
                                     successFunc: function (response) {
                                         console.log(response);
                                         self.setState({
-                                            myHTML: response
+                                            myHTML: response.article
                                         });
                                     },
                                     errorFunc: function (e) {

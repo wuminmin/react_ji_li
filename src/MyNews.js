@@ -21,6 +21,7 @@ class MyMenu extends React.Component {
             myHTML_tittle: '',
             myHTML_article: '',
             myHTML_time: '',
+            myHTML_author:'',
         }
     }
 
@@ -36,6 +37,31 @@ class MyMenu extends React.Component {
                 console.log(response);
                 self.setState({
                     菜单列表: response
+                });
+            },
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
+
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'myHTML_article_tittle_my_time',
+            isLogin: false,
+            message: {
+                "ban_kuai": this.props.ban_kuai,
+                "lan_mu": this.props.lan_mu,
+                "tittle": this.props.my_tittle
+            },
+            successFunc: function (response) {
+                console.log(response);
+                self.setState({
+                    myHTML_article: response.myHTML_article,
+                    myHTML_tittle: response.myHTML_tittle,
+                    myHTML_time: response.myHTML_time,
+                    myHTML_author:response.myHTML_author,
                 });
             },
             errorFunc: function (e) {
@@ -63,7 +89,8 @@ class MyMenu extends React.Component {
                 self.setState({
                     myHTML_article: response.myHTML_article,
                     myHTML_tittle: response.myHTML_tittle,
-                    myHTML_time: response.myHTML_time
+                    myHTML_time: response.myHTML_time,
+                    myHTML_author:response.myHTML_author,
                 });
               
             },
@@ -118,6 +145,7 @@ class MyMenu extends React.Component {
                 <Col span={2}></Col>
                 <Col span={18}>
                     <h1 align={'center'}>{this.state.myHTML_tittle}</h1>
+                    <h4 align={'center'}>{this.state.myHTML_author}</h4>
                     <h4 align={'center'}>{this.state.myHTML_time}</h4>
                     <div dangerouslySetInnerHTML={{ __html: this.state.myHTML_article }} />
                 </Col>
