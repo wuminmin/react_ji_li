@@ -5,6 +5,7 @@ import MyHeader from './MyHeader';
 import { Carousel, Layout, Menu, Breadcrumb, Icon, Row, Col, Dropdown, Button, Tag, PageHeader, Tabs, List } from 'antd';
 import MyFooter from './MyFooter';
 import AppGlobal from './AppGlobal';
+import wmm from './AppGlobal';
 import CommonMethod from './commonMethod';
 
 
@@ -133,7 +134,6 @@ export default class App extends React.Component {
           </Col>
           <Col span={2}></Col>
         </Row>
-
         <MyFooter></MyFooter>
       </div>
     )

@@ -5,6 +5,7 @@ import MyHeader from './MyHeader';
 import AppGlobal from './AppGlobal';
 import CommonMethod from './commonMethod';
 import ExcelReader from './ExcelReader';
+import emitter from "./ev";
 
 const { SubMenu } = Menu;
 
@@ -81,6 +82,9 @@ export default class DuiXian extends React.Component {
     }
 
     handleClick = e => {
+
+        emitter.emit('someEvent', e.key);
+
         console.log('click ', e.key);
         let self = this;
         CommonMethod.sendData({
@@ -91,10 +95,13 @@ export default class DuiXian extends React.Component {
             message: { "tittle":e.key },
             successFunc: function (response) {
                 console.log(response);
+
+                AppGlobal.tittle = e.key;
                 self.setState({
                     ji_li_qing_dan: response.ji_li_qing_dan,
                     tittle:e.key,
                 });
+                
             },
             errorFunc: function (e) {
                 console.log(e);
@@ -210,6 +217,8 @@ export default class DuiXian extends React.Component {
             },
         ];
 
+        
+
         return (
             <div>
                 <MyHeader usertoken={new URLSearchParams(this.props.location.search).get('usertoken')}></MyHeader>
@@ -263,7 +272,6 @@ export default class DuiXian extends React.Component {
                         <ExcelReader tittle={this.state.tittle}/>
                     </Col>
                 </Row>
-
             </div>
         )
     }

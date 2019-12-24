@@ -1,5 +1,5 @@
 class AppGlobal {
-
+    tittle = '';
     url = {
       
         index:'/ji_li_zhu_shou/#/',
@@ -35,3 +35,4 @@ class AppGlobal {
     
 }
 export default (new AppGlobal());
+
