@@ -5,12 +5,14 @@ import { SheetJSFT } from './types';
 import AppGlobal from './AppGlobal';
 import CommonMethod from './commonMethod';
 import emitter from "./ev";
+import { Row, Col, Button } from 'antd';
+
 
 class ExcelReader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ji_li_ming_cheng:'',
+      ji_li_ming_cheng: '',
       res: '',
       file: {},
       data: [],
@@ -26,7 +28,7 @@ class ExcelReader extends Component {
     this.eventEmitter = emitter.addListener("someEvent", (msg) => {
       console.log(msg);
       this.setState({
-        ji_li_ming_cheng:msg
+        ji_li_ming_cheng: msg
       })
     });
   }
@@ -65,7 +67,7 @@ class ExcelReader extends Component {
           code: 'testService',
           method: 'shang_chuang_excel',
           isLogin: false,
-          message: { "ji_li_ming_cheng": self.state.ji_li_ming_cheng , "jlzs_excel": JSON.stringify(self.state.data, null, 2) },
+          message: { "ji_li_ming_cheng": self.state.ji_li_ming_cheng, "jlzs_excel": JSON.stringify(self.state.data, null, 2) },
           successFunc: function (response) {
             self.setState({
               res: response.res,
@@ -90,14 +92,28 @@ class ExcelReader extends Component {
   render() {
     return (
       <div>
-        <label htmlFor="file">上传excel表格</label>
-        <br />
-        <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
-        <br />
-        <input type='submit'
-          value="上传文件"
-          onClick={this.handleFile} />
-        <label htmlFor="file">{this.state.res}</label>
+        <Row>
+          <Col span={6}>
+            <label htmlFor="file">上传excel表格</label>
+          </Col>
+          <Col span={6}>
+            <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
+          </Col>
+          <Col span={6}>
+            <input type='submit'
+              value="上传文件"
+              onClick={this.handleFile} />
+          </Col>
+          <Col span={6}>
+            <label htmlFor="file">{this.state.res}</label>
+          </Col>
+        </Row>
+        {/* <Row>
+          <Col span={24}>
+           <Button>确认</Button>
+          </Col>
+ 
+        </Row> */}
       </div>
     )
   }

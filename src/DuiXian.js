@@ -16,7 +16,6 @@ export default class DuiXian extends React.Component {
         lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
         ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
         my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
-        tittle: '',
         usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
         username: '',
         userphone: '',
@@ -29,6 +28,7 @@ export default class DuiXian extends React.Component {
         ban_kuai2: '新闻中心',
         ban_kuai3: '依法履职',
         ban_kuai4: '营销活动',
+        duan_xin_label:'',
     }
 
     componentDidMount() {
@@ -41,29 +41,29 @@ export default class DuiXian extends React.Component {
             isLogin: false,
             message: {},
             successFunc: function (response) {
-              console.log(response);
-              self.setState({
-                username: response.username,
-                userphone: response.userphone,
-                userrole: response.userrole,
-                mainid: response.mainid,
-                type1: response.type1,
-                type2: response.type2,
-                type3: response.type3,
-              })
+                console.log(response);
+                self.setState({
+                    username: response.username,
+                    userphone: response.userphone,
+                    userrole: response.userrole,
+                    mainid: response.mainid,
+                    type1: response.type1,
+                    type2: response.type2,
+                    type3: response.type3,
+                })
             },
             errorFunc: function (e) {
-              console.log(e);
+                console.log(e);
             },
             encode: true
-          });
+        });
 
-          CommonMethod.sendData({
+        CommonMethod.sendData({
             url: AppGlobal.url.java_url,
             code: 'testService',
             method: 'rd_xia_zai_by_lan_mu',
             isLogin: false,
-            message: { "lan_mu":self.state.lan_mu },
+            message: { "lan_mu": self.state.lan_mu },
             successFunc: function (response) {
                 console.log(response);
                 self.setState({
@@ -92,16 +92,14 @@ export default class DuiXian extends React.Component {
             code: 'testService',
             method: 'get_tables_by_tittle',
             isLogin: false,
-            message: { "tittle":e.key },
+            message: { "ban_kuai": self.state.ban_kuai, "lan_mu": self.state.lan_mu, "tittle": e.key },
             successFunc: function (response) {
                 console.log(response);
-
-                AppGlobal.tittle = e.key;
                 self.setState({
                     ji_li_qing_dan: response.ji_li_qing_dan,
-                    tittle:e.key,
+                    my_tittle: e.key,
                 });
-                
+
             },
             errorFunc: function (e) {
                 console.log(e);
@@ -111,24 +109,6 @@ export default class DuiXian extends React.Component {
     };
 
     render() {
-        const props = {
-            name: 'file',
-            action: AppGlobal.url.upload,
-            data:{usertoken:this.state.usertoken,tittle:this.state.tittle},
-            headers: {
-                authorization: 'authorization-text',
-            },
-            onChange(info) {
-                if (info.file.status !== 'uploading') {
-                    console.log(info.file, info.fileList);
-                }
-                if (info.file.status === 'done') {
-                    message.success(`${info.file.name} file uploaded successfully`);
-                } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} file upload failed.`);
-                }
-            },
-        };
 
         const columns = [
             {
@@ -182,7 +162,7 @@ export default class DuiXian extends React.Component {
                 key: 'action',
                 render: (text, record) => (
                     <span>
-                        <a>修改 {record.name}</a>
+                        <a>修改 </a>
                         <Divider type="vertical" />
                         <a>删除</a>
                     </span>
@@ -197,7 +177,7 @@ export default class DuiXian extends React.Component {
                 age: 32,
                 address: 'New York No. 1 Lake Park',
                 tags: ['nice', 'developer'],
-                bankid:'677***',
+                bankid: '677***',
             },
             {
                 key: '2',
@@ -205,7 +185,7 @@ export default class DuiXian extends React.Component {
                 age: 42,
                 address: 'London No. 1 Lake Park',
                 tags: ['loser'],
-                bankid:'677***',
+                bankid: '677***',
             },
             {
                 key: '3',
@@ -213,11 +193,9 @@ export default class DuiXian extends React.Component {
                 age: 32,
                 address: 'Sidney No. 1 Lake Park',
                 tags: ['cool', 'teacher'],
-                bankid:'677***',
+                bankid: '677***',
             },
         ];
-
-        
 
         return (
             <div>
@@ -262,17 +240,44 @@ export default class DuiXian extends React.Component {
                         </Menu>
                     </Col>
                     <Col span={2}></Col>
-                    <Col span={18}>
+                    <Col span={6}>
                         <Table columns={columns} dataSource={this.state.ji_li_qing_dan} />
-                        {/* <Upload {...props}>
-                            <Button>
-                                <Icon type="upload" /> 点击上传文件
-                            </Button>
-                        </Upload> */}
-                        <ExcelReader tittle={this.state.tittle}/>
+                        <ExcelReader  />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={4}>
+                    </Col>
+                    <Col span={2}></Col>
+                    <Col span={18}>
+                        <Button onClick={() => {
+                            console.log(this.state.my_tittle);
+                            let self = this;
+                            CommonMethod.sendData({
+                                url: AppGlobal.url.java_url,
+                                code: 'testService',
+                                method: 'fa_song_duan_xin',
+                                isLogin: false,
+                                message: { "ban_kuai": self.state.ban_kuai, "lan_mu": self.state.lan_mu, "ji_li_ming_cheng": self.state.my_tittle },
+                                successFunc: function (response) {
+                                    console.log(response);
+                                    self.setState({
+                                        duan_xin_label: response.res,
+                                    });
+                                },
+                                errorFunc: function (e) {
+                                    console.log(e);
+                                },
+                                encode: true
+                            });
+                        }}>发短信</Button>
+                    </Col>
+                    <Col span={12}>
+                    <label>{this.state.duan_xin_label}</label>
                     </Col>
                 </Row>
             </div>
+
         )
     }
 }

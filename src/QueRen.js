@@ -1,12 +1,10 @@
-import 'braft-editor/dist/index.css'
-import React from 'react'
-import BraftEditor from 'braft-editor'
-import axios from 'axios'
-import Qs from 'qs'
-import moment from 'moment'
+import 'braft-editor/dist/index.css';
+import React from 'react';
 import { Menu, Modal, Button, Table, Divider, Upload, message, Select, Icon, Row, Col, Dropdown, Tag, PageHeader } from 'antd';
-import MyHeader from './MyHeader'
-import AppGlobal from './AppGlobal'
+import MyHeader from './MyHeader';
+import AppGlobal from './AppGlobal';
+import emitter from "./ev";
+import CommonMethod from './commonMethod';
 
 const { SubMenu } = Menu;
 const { confirm } = Modal;
@@ -38,21 +36,6 @@ class MyTables extends React.Component {
                     title: '激励账期',
                     key: 'tags',
                     dataIndex: 'tags',
-                    // render: tags => (
-                    //     <span>
-                    //         {tags.map(tag => {
-                    //             let color = tag.length > 5 ? 'geekblue' : 'green';
-                    //             if (tag === 'loser') {
-                    //                 color = 'volcano';
-                    //             }
-                    //             return (
-                    //                 <Tag color={color} key={tag}>
-                    //                     {tag.toUpperCase()}
-                    //                 </Tag>
-                    //             );
-                    //         })}
-                    //     </span>
-                    // ),
                 },
                 {
                     title: '银行卡',
@@ -78,31 +61,22 @@ class MyTables extends React.Component {
                                 onOk={() => {
                                     console.log(record.age);
                                     let self = this;
-                                    let data = {
-                                        "s": "0",
-                                        "c": "testService",
-                                        "m": "que_ren_by_sellid",
-                                        "data": {
-                                            "sellid": record.age,
-                                            "usertoken": self.state.usertoken
-                                        }
-                                    }
-                                    axios({
-                                        headers: {
-                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                    CommonMethod.sendData({
+                                        url: AppGlobal.url.java_url,
+                                        code: 'testService',
+                                        method: 'que_ren_by_sellid',
+                                        isLogin: false,
+                                        message: { "sellid":record.age },
+                                        successFunc: function (response) {
+                                            self.setState({
+                                                visible: false,
+                                            });
                                         },
-                                        method: 'post',
-                                        url: AppGlobal.url.java_get_data,
-                                        data: Qs.stringify(data)
-                                    }).then(function (response) {
-                                        console.log(response)
-                                        self.setState({
-                                            visible: false,
-                                        });
-                                    })
-                                        .catch(function (error) {
-                                            console.log(error);
-                                        });
+                                        errorFunc: function (e) {
+                                            console.log(e);
+                                        },
+                                        encode: true
+                                    });
                                 }}
                                 onCancel={(record) => { this.handleCancel(record) }}
                             >
@@ -155,7 +129,7 @@ export default class QueRen extends React.Component {
             ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
             my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
             tittle: '',
-            lan_mu: '兑现中',
+            lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
             usertoken: new URLSearchParams(this.props.location.search).get('usertoken'),
             username: '',
             userphone: '',
@@ -175,72 +149,47 @@ export default class QueRen extends React.Component {
     componentDidMount() {
         this.isLivinig = true
         let self = this;
-        try {
-            const search = this.props.location.search;
-            const params = new URLSearchParams(search);
-            console.log(params)
-            let data = {
-                "s":"0",
-                "c":"testService",
-                "m": "xia_zai_yong_hu_xin_xi",
-              "data":{ "usertoken": params.get('usertoken') }
-                
-            }
-            axios({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                method: 'post',
-                url: AppGlobal.url.java_get_data,
-                data: Qs.stringify(data)
-            }).then(function (response) {
-                console.log(response)
-                if (response.data.username === '') {
-                    // window.location.href = AppGlobal.url.login
-                } else {
-                    self.setState({
-                        username: response.data.username,
-                        userphone: response.data.userphone,
-                        userrole: response.data.userrole,
-                        mainid: response.data.mainid,
-                        type1: response.data.type1,
-                        type2: response.data.type2,
-                        type3: response.data.type3,
-                    })
-                }
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'xia_zai_yong_hu_xin_xi',
+            isLogin: false,
+            message: {},
+            successFunc: function (response) {
+              console.log(response);
+              self.setState({
+                username: response.username,
+                userphone: response.userphone,
+                userrole: response.userrole,
+                mainid: response.mainid,
+                type1: response.type1,
+                type2: response.type2,
+                type3: response.type3,
+              })
+            },
+            errorFunc: function (e) {
+              console.log(e);
+            },
+            encode: true
+          });
 
-            let data2 = {
-                "s":"0",
-                "c":"testService",
-                "m": "rd_xia_zai_by_lan_mu",
-              "data":{  "type": self.state.type  }
-               
-            }
-            axios({
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                method: 'post',
-                url: AppGlobal.url.java_get_data,
-                data: Qs.stringify(data2)
-            }).then(function (response) {
-                console.log(response)
+          CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'rd_xia_zai_by_lan_mu',
+            isLogin: false,
+            message: { "lan_mu":self.state.lan_mu },
+            successFunc: function (response) {
+                console.log(response);
                 self.setState({
-                    菜单列表: response.data.m
+                    菜单列表: response
                 });
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        } catch (e) {
-            console.log(e)
-            // window.location.href = AppGlobal.url.login
-        }
+            },
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
     }
 
     handleChange(value) {
@@ -248,36 +197,29 @@ export default class QueRen extends React.Component {
     }
 
     handleClick = e => {
+       
+        emitter.emit('someEvent', e.key);
+
         console.log('click ', e.key);
         let self = this;
-        let data = {
-            "s":"0",
-            "c":"testService",
-            "m": "get_tables_by_tittle",
-          "data":{  "tittle": e.key,
-          "usertoken": self.state.usertoken  }
-           
-        }
-        axios({
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+        CommonMethod.sendData({
+            url: AppGlobal.url.java_url,
+            code: 'testService',
+            method: 'get_tables_by_tittle',
+            isLogin: false,
+            message: { "ban_kuai":self.state.ban_kuai, "lan_mu":self.state.lan_mu,"tittle":e.key },
+            successFunc: function (response) {
+                console.log(response);
+                self.setState({
+                    ji_li_qing_dan: response.ji_li_qing_dan,
+                    tittle:e.key,
+                });
             },
-            method: 'post',
-            url: AppGlobal.url.java_get_data,
-            data: Qs.stringify(data)
-        }).then(function (response) {
-            console.log(response)
-            self.setState
-                (
-                    state => ({
-                        活动详单: response.data
-                    })
-                );
-
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+            errorFunc: function (e) {
+                console.log(e);
+            },
+            encode: true
+        });
     };
 
     render() {
