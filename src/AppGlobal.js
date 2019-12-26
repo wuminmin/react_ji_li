@@ -12,7 +12,7 @@ class AppGlobal {
         首页:'/ji_li_zhu_shou/#/',
 
         已发布:'/ji_li_zhu_shou/#/mynews?ban_kuai=营销活动&lan_mu=已发布&tittle=默认',
-        兑现中:'/ji_li_zhu_shou/#/mynews?ban_kuai=营销活动&lan_mu=兑现中&tittle=默认',
+        已兑现:'/ji_li_zhu_shou/#/mynews?ban_kuai=营销活动&lan_mu=已兑现&tittle=默认',
         已归档:'/ji_li_zhu_shou/#/mynews?ban_kuai=营销活动&lan_mu=已归档&tittle=默认',
 
         发布激励:'/ji_li_zhu_shou/#/wenzhang?ban_kuai=活动管理&lan_mu=发布激励&tittle=默认',

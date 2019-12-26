@@ -28,7 +28,7 @@ export default class DuiXian extends React.Component {
         ban_kuai2: '新闻中心',
         ban_kuai3: '依法履职',
         ban_kuai4: '营销活动',
-        duan_xin_label:'',
+        duan_xin_label: '',
     }
 
     componentDidMount() {
@@ -112,7 +112,7 @@ export default class DuiXian extends React.Component {
 
         const columns = [
             {
-                title: '主数据',
+                title: '手机号',
                 dataIndex: 'name',
                 key: 'name',
                 render: text => <a>{text}</a>,
@@ -240,16 +240,16 @@ export default class DuiXian extends React.Component {
                         </Menu>
                     </Col>
                     <Col span={2}></Col>
-                    <Col span={6}>
+                    <Col span={18}>
                         <Table columns={columns} dataSource={this.state.ji_li_qing_dan} />
-                        <ExcelReader  />
+                        <ExcelReader />
                     </Col>
                 </Row>
                 <Row>
                     <Col span={4}>
                     </Col>
                     <Col span={2}></Col>
-                    <Col span={18}>
+                    <Col span={9}>
                         <Button onClick={() => {
                             console.log(this.state.my_tittle);
                             let self = this;
@@ -270,10 +270,10 @@ export default class DuiXian extends React.Component {
                                 },
                                 encode: true
                             });
-                        }}>发短信</Button>
+                        }}>{this.state.lan_mu}</Button>
                     </Col>
-                    <Col span={12}>
-                    <label>{this.state.duan_xin_label}</label>
+                    <Col span={9}>
+                        <label>{this.state.duan_xin_label}</label>
                     </Col>
                 </Row>
             </div>

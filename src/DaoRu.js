@@ -170,7 +170,7 @@ export default class Daoru extends React.Component {
 
         const columns = [
             {
-                title: '主数据',
+                title: '手机号',
                 dataIndex: 'name',
                 key: 'name',
                 render: text => <a>{text}</a>,

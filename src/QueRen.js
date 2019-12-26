@@ -7,17 +7,42 @@ import emitter from "./ev";
 import CommonMethod from './commonMethod';
 
 const { SubMenu } = Menu;
-const { confirm } = Modal;
 
 class MyTables extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            活动详单: this.props.活动详单,
+            ji_li_qing_dan: this.props.ji_li_qing_dan,
             visible: false,
+            tmpdata : [
+                {
+                    key: '1',
+                    name: 'John Brown',
+                    age: 32,
+                    address: 'New York No. 1 Lake Park',
+                    tags: ['nice', 'developer'],
+                    bankid: '677***',
+                },
+                {
+                    key: '2',
+                    name: 'Jim Green',
+                    age: 42,
+                    address: 'London No. 1 Lake Park',
+                    tags: ['loser'],
+                    bankid: '677***',
+                },
+                {
+                    key: '3',
+                    name: 'Joe Black',
+                    age: 32,
+                    address: 'Sidney No. 1 Lake Park',
+                    tags: ['cool', 'teacher'],
+                    bankid: '677***',
+                },
+            ],
             columns: [
                 {
-                    title: '主数据',
+                    title: '手机号',
                     dataIndex: 'name',
                     key: 'name',
                     render: text => <a>{text}</a>,
@@ -50,6 +75,7 @@ class MyTables extends React.Component {
                 {
                     title: '操作',
                     key: 'action',
+                    dataIndex: 'name',
                     render: (text, record) => (
                         <span>
                             <Button type="primary" onClick={this.showModal}>
@@ -58,15 +84,15 @@ class MyTables extends React.Component {
                             <Modal
                                 title="激励确认"
                                 visible={this.state.visible}
-                                onOk={() => {
+                                onOk={(record) => {
                                     console.log(record.age);
                                     let self = this;
                                     CommonMethod.sendData({
                                         url: AppGlobal.url.java_url,
                                         code: 'testService',
-                                        method: 'que_ren_by_sellid',
+                                        method: 'que_ren_by_xiao_shou_ping_bian_hao',
                                         isLogin: false,
-                                        message: { "sellid":record.age },
+                                        message: { "xiao_shou_ping_bian_hao":record.age },
                                         successFunc: function (response) {
                                             self.setState({
                                                 visible: false,
@@ -89,7 +115,7 @@ class MyTables extends React.Component {
             ],
             usertoken: this.props.usertoken,
         }
-        console.log('constructor(props)', this.props.活动详单)
+        console.log('constructor(props)', this.props.ji_li_qing_dan)
     }
 
     showModal = () => {
@@ -100,7 +126,6 @@ class MyTables extends React.Component {
 
     handleOk = () => {
         console.log(this.props.myname)
-
         this.setState({
             visible: false,
         });
@@ -115,7 +140,7 @@ class MyTables extends React.Component {
 
     render() {
         return (
-            <Table columns={this.state.columns} dataSource={this.props.活动详单} />
+            <Table columns={this.state.columns} dataSource={this.props.tmpdata} />
         )
     }
 }
@@ -124,7 +149,7 @@ export default class QueRen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            活动详单: [],
+            ji_li_qing_dan: [],
             菜单列表: [],
             ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
             my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
@@ -267,7 +292,7 @@ export default class QueRen extends React.Component {
                     </Col>
                     <Col span={2}></Col>
                     <Col span={18}>
-                        <MyTables usertoken={this.state.usertoken} 活动详单={this.state.活动详单} handleClick={this.handleClick.bind(this)}></MyTables>
+                        <MyTables usertoken={this.state.usertoken} ji_li_qing_dan={this.state.ji_li_qing_dan} handleClick={this.handleClick.bind(this)}></MyTables>
                     </Col>
                 </Row>
             </div>
