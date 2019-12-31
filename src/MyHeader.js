@@ -49,8 +49,8 @@ export default class MyHeader extends React.Component {
         </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.兑现中}>
-                        兑现中
+                    <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.已兑现}>
+                    已兑现
         </a>
                 </Menu.Item>
                 <Menu.Item>
