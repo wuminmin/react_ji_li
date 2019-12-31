@@ -38,7 +38,7 @@ export default class DuiXian extends React.Component {
         let self = this;
         CommonMethod.sendData({
             url: AppGlobal.url.java_url,
-            code: 'testService',
+            code: 'ji_li_zhu_shou_service',
             method: 'xia_zai_yong_hu_xin_xi',
             isLogin: false,
             message: {},
@@ -62,7 +62,7 @@ export default class DuiXian extends React.Component {
 
         CommonMethod.sendData({
             url: AppGlobal.url.java_url,
-            code: 'testService',
+            code: 'ji_li_zhu_shou_service',
             method: 'rd_xia_zai_by_lan_mu',
             isLogin: false,
             message: { "lan_mu": self.state.lan_mu },
@@ -91,7 +91,7 @@ export default class DuiXian extends React.Component {
         let self = this;
         CommonMethod.sendData({
             url: AppGlobal.url.java_url,
-            code: 'testService',
+            code: 'ji_li_zhu_shou_service',
             method: 'get_tables_by_tittle',
             isLogin: false,
             message: { "ban_kuai": self.state.ban_kuai, "lan_mu": self.state.lan_mu, "tittle": e.key },
@@ -248,7 +248,7 @@ export default class DuiXian extends React.Component {
                                 let self = this;
                                 CommonMethod.sendData({
                                     url: AppGlobal.url.java_url,
-                                    code: 'testService',
+                                    code: 'ji_li_zhu_shou_service',
                                     method: 'shan_chu_by_xiao_shou_ping_bian_hao',
                                     isLogin: false,
                                     message: { "xiao_shou_ping_bian_hao": self.state.myrecord.age },
@@ -301,7 +301,7 @@ export default class DuiXian extends React.Component {
                             let self = this;
                             CommonMethod.sendData({
                                 url: AppGlobal.url.java_url,
-                                code: 'testService',
+                                code: 'ji_li_zhu_shou_service',
                                 method: 'fa_song_duan_xin',
                                 isLogin: false,
                                 message: { "ban_kuai": self.state.ban_kuai, "lan_mu": self.state.lan_mu, "ji_li_ming_cheng": self.state.my_tittle },

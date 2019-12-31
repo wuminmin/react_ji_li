@@ -101,7 +101,7 @@ export default class WenZhang extends React.Component {
         let self = this;
         CommonMethod.sendData({
             url: AppGlobal.url.java_url,
-            code: 'testService',
+            code: 'ji_li_zhu_shou_service',
             method: 'xia_zai_yong_hu_xin_xi',
             isLogin: false,
             message: {},
@@ -188,7 +188,7 @@ export default class WenZhang extends React.Component {
                                 let self = this;
                                 CommonMethod.sendData({
                                     url: AppGlobal.url.java_url,
-                                    code: 'testService',
+                                    code: 'ji_li_zhu_shou_service',
                                     method: 'rd_updata',
                                     isLogin: false,
                                     message: {

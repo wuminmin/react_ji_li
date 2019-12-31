@@ -29,7 +29,7 @@ class MyMenu extends React.Component {
         let self = this;
         CommonMethod.sendData({
             url: AppGlobal.url.java_url,
-            code: 'testService',
+            code: 'ji_li_zhu_shou_service',
             method: 'rd_xia_zai_by_lan_mu',
             isLogin: false,
             message: { "ban_kuai":this.props.ban_kuai ,"lan_mu": this.props.lan_mu ,"my_tittle":this.props.my_tittle },
@@ -47,7 +47,7 @@ class MyMenu extends React.Component {
 
         CommonMethod.sendData({
             url: AppGlobal.url.java_url,
-            code: 'testService',
+            code: 'ji_li_zhu_shou_service',
             method: 'myHTML_article_tittle_my_time',
             isLogin: false,
             message: {
@@ -76,7 +76,7 @@ class MyMenu extends React.Component {
         let self = this;
         CommonMethod.sendData({
             url: AppGlobal.url.java_url,
-            code: 'testService',
+            code: 'ji_li_zhu_shou_service',
             method: 'myHTML_article_tittle_my_time',
             isLogin: false,
             message: {

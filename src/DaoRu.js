@@ -41,7 +41,7 @@ export default class Daoru extends React.Component {
             console.log(params)
             let data = {
                 "s":"0",
-                "c":"testService",
+                "c":"ji_li_zhu_shou_service",
                 "m": "xia_zai_yong_hu_xin_xi",
               "data":{  "usertoken": params.get('usertoken') }
                
@@ -75,7 +75,7 @@ export default class Daoru extends React.Component {
 
             let data2 = {
                 "s":"0",
-                "c":"testService",
+                "c":"ji_li_zhu_shou_service",
                 "m": "rd_xia_zai_by_lan_mu",
                 "data":{
                     "lan_mu":self.state.lan_mu
@@ -113,7 +113,7 @@ export default class Daoru extends React.Component {
         let self = this;
         let data = {
             "s":"0",
-            "c":"testService",
+            "c":"ji_li_zhu_shou_service",
             "m": "get_tables_by_tittle",
             "data":{
                 "tittle": e.key,
@@ -147,7 +147,7 @@ export default class Daoru extends React.Component {
             action: AppGlobal.url.java_get_data,
             data:{
                 s:"0",
-                c:"testService",
+                c:"ji_li_zhu_shou_service",
                 m: "upload",
                 data:{
                     usertoken:this.state.usertoken,tittle:this.state.tittle

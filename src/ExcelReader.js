@@ -64,7 +64,7 @@ class ExcelReader extends Component {
         let self = this;
         CommonMethod.sendData({
           url: AppGlobal.url.java_url,
-          code: 'testService',
+          code: 'ji_li_zhu_shou_service',
           method: 'shang_chuang_excel',
           isLogin: false,
           message: { "ji_li_ming_cheng": self.state.ji_li_ming_cheng, "jlzs_excel": JSON.stringify(self.state.data, null, 2) },
