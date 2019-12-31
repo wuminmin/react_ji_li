@@ -1,6 +1,6 @@
 import 'braft-editor/dist/index.css';
 import React from 'react';
-import { Menu, Table, Divider, Upload, message, Select, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
+import { Menu, Table, Modal, Upload, message, Select, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
 import MyHeader from './MyHeader';
 import AppGlobal from './AppGlobal';
 import CommonMethod from './commonMethod';
@@ -11,6 +11,8 @@ const { SubMenu } = Menu;
 
 export default class DuiXian extends React.Component {
     state = {
+        visible: false,
+        myrecord: {},
         ji_li_qing_dan: [],
         菜单列表: [],
         lan_mu: new URLSearchParams(this.props.location.search).get('lan_mu'),
@@ -162,8 +164,6 @@ export default class DuiXian extends React.Component {
                 key: 'action',
                 render: (text, record) => (
                     <span>
-                        <a>修改 </a>
-                        <Divider type="vertical" />
                         <a>删除</a>
                     </span>
                 ),
@@ -241,7 +241,53 @@ export default class DuiXian extends React.Component {
                     </Col>
                     <Col span={2}></Col>
                     <Col span={18}>
-                        <Table columns={columns} dataSource={this.state.ji_li_qing_dan} />
+                        <Modal
+                            title="激励确认"
+                            visible={this.state.visible}
+                            onOk={() => {
+                                let self = this;
+                                CommonMethod.sendData({
+                                    url: AppGlobal.url.java_url,
+                                    code: 'testService',
+                                    method: 'shan_chu_by_xiao_shou_ping_bian_hao',
+                                    isLogin: false,
+                                    message: { "xiao_shou_ping_bian_hao": self.state.myrecord.age },
+                                    successFunc: function (response) {
+                                        self.setState({
+                                            visible: false,
+                                        });
+                                    },
+                                    errorFunc: function (e) {
+                                        console.log(e);
+                                    },
+                                    encode: true
+                                });
+                            }}
+                            onCancel={() => {
+                                this.setState({
+                                    visible: false,
+                                })
+                            }}
+                        >
+                            <p>请确认是否删除{this.state.myrecord.name}的{this.state.myrecord.age}激励？</p>
+                            <p>确认删除！</p>
+                        </Modal>
+                        <Table
+                            onRow={record => {
+                                return {
+                                    onClick: event => {
+                                        this.setState({
+                                            myrecord: record,
+                                            visible: true,
+                                        })
+                                    }, // 点击行
+                                    onDoubleClick: event => { },
+                                    onContextMenu: event => { },
+                                    onMouseEnter: event => { }, // 鼠标移入行
+                                    onMouseLeave: event => { },
+                                };
+                            }}
+                            columns={columns} dataSource={this.state.ji_li_qing_dan} />
                         <ExcelReader />
                     </Col>
                 </Row>

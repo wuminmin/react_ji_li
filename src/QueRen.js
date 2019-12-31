@@ -14,7 +14,7 @@ class MyTables extends React.Component {
         this.state = {
             ji_li_qing_dan: this.props.ji_li_qing_dan,
             visible: false,
-            myrecord:{},
+            myrecord: {},
             columns: [
                 {
                     title: '手机号',
@@ -97,54 +97,55 @@ class MyTables extends React.Component {
     render() {
         return (
             <div>
-                 <Table
-                onRow={record => {
-                    return {
-                        onClick: event => {
-                            this.setState({
-                                myrecord : record,
-                                visible:true,
-                            })
-                        }, // 点击行
-                        onDoubleClick: event => { },
-                        onContextMenu: event => { },
-                        onMouseEnter: event => { }, // 鼠标移入行
-                        onMouseLeave: event => { },
-                    };
-                }}
-
-                columns={this.state.columns} dataSource={this.props.ji_li_qing_dan} />
+                <Table
+                    onRow={record => {
+                        return {
+                            onClick: event => {
+                                this.setState({
+                                    myrecord: record,
+                                    visible: true,
+                                })
+                            }, // 点击行
+                            onDoubleClick: event => { },
+                            onContextMenu: event => { },
+                            onMouseEnter: event => { }, // 鼠标移入行
+                            onMouseLeave: event => { },
+                        };
+                    }}
+                    columns={this.state.columns} dataSource={this.props.ji_li_qing_dan} />
                 <Modal
-                                    title="激励确认"
-                                    visible={this.state.visible}
-                                    onOk={() => {
-                                        let self = this;
-                                        CommonMethod.sendData({
-                                            url: AppGlobal.url.java_url,
-                                            code: 'testService',
-                                            method: 'que_ren_by_xiao_shou_ping_bian_hao',
-                                            isLogin: false,
-                                            message: { "xiao_shou_ping_bian_hao": self.state.myrecord.age },
-                                            successFunc: function (response) {
-                                                self.setState({
-                                                    visible: false,
-                                                });
-                                            },
-                                            errorFunc: function (e) {
-                                                console.log(e);
-                                            },
-                                            encode: true
-                                        });
-                                    }}
-                                    onCancel={() => {  this.setState({
-                                        visible: false,
-                                    }) }}
-                                >
-                                    <p>请{this.state.myrecord.name}确认是否收到{this.state.myrecord.age}激励？</p>
-                                    <p>已收到！</p>
-                                </Modal>
+                    title="激励确认"
+                    visible={this.state.visible}
+                    onOk={() => {
+                        let self = this;
+                        CommonMethod.sendData({
+                            url: AppGlobal.url.java_url,
+                            code: 'testService',
+                            method: 'que_ren_by_xiao_shou_ping_bian_hao',
+                            isLogin: false,
+                            message: { "xiao_shou_ping_bian_hao": self.state.myrecord.age },
+                            successFunc: function (response) {
+                                self.setState({
+                                    visible: false,
+                                });
+                            },
+                            errorFunc: function (e) {
+                                console.log(e);
+                            },
+                            encode: true
+                        });
+                    }}
+                    onCancel={() => {
+                        this.setState({
+                            visible: false,
+                        })
+                    }}
+                >
+                    <p>请{this.state.myrecord.name}确认是否收到{this.state.myrecord.age}激励？</p>
+                    <p>已收到！</p>
+                </Modal>
             </div>
-           
+
         )
     }
 }
@@ -153,15 +154,8 @@ export default class QueRen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ji_li_qing_dan: [ ],
-            菜单列表: [
-                {
-                    "月份": "12",
-                    '新闻标题列表': [
-                        { "标题": 'wmm' }
-                    ]
-                }
-            ],
+            ji_li_qing_dan: [],
+            菜单列表: [],
             ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
             my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
             tittle: '',
