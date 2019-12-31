@@ -14,32 +14,7 @@ class MyTables extends React.Component {
         this.state = {
             ji_li_qing_dan: this.props.ji_li_qing_dan,
             visible: false,
-            tmpdata : [
-                {
-                    key: '1',
-                    name: 'John Brown',
-                    age: 32,
-                    address: 'New York No. 1 Lake Park',
-                    tags: ['nice', 'developer'],
-                    bankid: '677***',
-                },
-                {
-                    key: '2',
-                    name: 'Jim Green',
-                    age: 42,
-                    address: 'London No. 1 Lake Park',
-                    tags: ['loser'],
-                    bankid: '677***',
-                },
-                {
-                    key: '3',
-                    name: 'Joe Black',
-                    age: 32,
-                    address: 'Sidney No. 1 Lake Park',
-                    tags: ['cool', 'teacher'],
-                    bankid: '677***',
-                },
-            ],
+            myrecord:{},
             columns: [
                 {
                     title: '手机号',
@@ -74,43 +49,44 @@ class MyTables extends React.Component {
                 },
                 {
                     title: '操作',
-                    key: 'action',
                     dataIndex: 'name',
-                    render: (text, record) => (
-                        <span>
-                            <Button type="primary" onClick={this.showModal}>
-                                确认
-                            </Button>
-                            <Modal
-                                title="激励确认"
-                                visible={this.state.visible}
-                                onOk={(record) => {
-                                    console.log(record.age);
-                                    let self = this;
-                                    CommonMethod.sendData({
-                                        url: AppGlobal.url.java_url,
-                                        code: 'testService',
-                                        method: 'que_ren_by_xiao_shou_ping_bian_hao',
-                                        isLogin: false,
-                                        message: { "xiao_shou_ping_bian_hao":record.age },
-                                        successFunc: function (response) {
-                                            self.setState({
-                                                visible: false,
-                                            });
-                                        },
-                                        errorFunc: function (e) {
-                                            console.log(e);
-                                        },
-                                        encode: true
-                                    });
-                                }}
-                                onCancel={(record) => { this.handleCancel(record) }}
-                            >
-                                <p>请{record.name}确认是否收到{record.age}激励？</p>
-                                <p>已收到！</p>
-                            </Modal>
-                        </span>
-                    ),
+                    key: 'action',
+                    render: text => <a>确认</a>,
+                    // render: (text, record) => (
+                    //     <span>
+                    //         <Button type="primary" onClick={this.showModal}>
+                    //             确认
+                    //         </Button>
+                    //         <Modal
+                    //             title="激励确认"
+                    //             visible={this.state.visible}
+                    //             onOk={(record) => {
+                    //                 console.log(record.age);
+                    //                 let self = this;
+                    //                 CommonMethod.sendData({
+                    //                     url: AppGlobal.url.java_url,
+                    //                     code: 'testService',
+                    //                     method: 'que_ren_by_xiao_shou_ping_bian_hao',
+                    //                     isLogin: false,
+                    //                     message: { "xiao_shou_ping_bian_hao": record.age },
+                    //                     successFunc: function (response) {
+                    //                         self.setState({
+                    //                             visible: false,
+                    //                         });
+                    //                     },
+                    //                     errorFunc: function (e) {
+                    //                         console.log(e);
+                    //                     },
+                    //                     encode: true
+                    //                 });
+                    //             }}
+                    //             onCancel={(record) => { this.handleCancel(record) }}
+                    //         >
+                    //             <p>请{record.name}确认是否收到{record.age}激励？</p>
+                    //             <p>已收到！</p>
+                    //         </Modal>
+                    //     </span>
+                    // ),
                 },
             ],
             usertoken: this.props.usertoken,
@@ -118,29 +94,57 @@ class MyTables extends React.Component {
         console.log('constructor(props)', this.props.ji_li_qing_dan)
     }
 
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    handleOk = () => {
-        console.log(this.props.myname)
-        this.setState({
-            visible: false,
-        });
-    };
-
-    handleCancel = record => {
-        console.log(record.name)
-        this.setState({
-            visible: false,
-        });
-    };
-
     render() {
         return (
-            <Table columns={this.state.columns} dataSource={this.props.tmpdata} />
+            <div>
+                 <Table
+                onRow={record => {
+                    return {
+                        onClick: event => {
+                            this.setState({
+                                myrecord : record,
+                                visible:true,
+                            })
+                        }, // 点击行
+                        onDoubleClick: event => { },
+                        onContextMenu: event => { },
+                        onMouseEnter: event => { }, // 鼠标移入行
+                        onMouseLeave: event => { },
+                    };
+                }}
+
+                columns={this.state.columns} dataSource={this.props.ji_li_qing_dan} />
+                <Modal
+                                    title="激励确认"
+                                    visible={this.state.visible}
+                                    onOk={() => {
+                                        let self = this;
+                                        CommonMethod.sendData({
+                                            url: AppGlobal.url.java_url,
+                                            code: 'testService',
+                                            method: 'que_ren_by_xiao_shou_ping_bian_hao',
+                                            isLogin: false,
+                                            message: { "xiao_shou_ping_bian_hao": self.state.myrecord.age },
+                                            successFunc: function (response) {
+                                                self.setState({
+                                                    visible: false,
+                                                });
+                                            },
+                                            errorFunc: function (e) {
+                                                console.log(e);
+                                            },
+                                            encode: true
+                                        });
+                                    }}
+                                    onCancel={() => {  this.setState({
+                                        visible: false,
+                                    }) }}
+                                >
+                                    <p>请{this.state.myrecord.name}确认是否收到{this.state.myrecord.age}激励？</p>
+                                    <p>已收到！</p>
+                                </Modal>
+            </div>
+           
         )
     }
 }
@@ -149,8 +153,15 @@ export default class QueRen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ji_li_qing_dan: [],
-            菜单列表: [],
+            ji_li_qing_dan: [ ],
+            菜单列表: [
+                {
+                    "月份": "12",
+                    '新闻标题列表': [
+                        { "标题": 'wmm' }
+                    ]
+                }
+            ],
             ban_kuai: new URLSearchParams(this.props.location.search).get('ban_kuai'),
             my_tittle: new URLSearchParams(this.props.location.search).get('my_tittle'),
             tittle: '',
@@ -181,29 +192,29 @@ export default class QueRen extends React.Component {
             isLogin: false,
             message: {},
             successFunc: function (response) {
-              console.log(response);
-              self.setState({
-                username: response.username,
-                userphone: response.userphone,
-                userrole: response.userrole,
-                mainid: response.mainid,
-                type1: response.type1,
-                type2: response.type2,
-                type3: response.type3,
-              })
+                console.log(response);
+                self.setState({
+                    username: response.username,
+                    userphone: response.userphone,
+                    userrole: response.userrole,
+                    mainid: response.mainid,
+                    type1: response.type1,
+                    type2: response.type2,
+                    type3: response.type3,
+                })
             },
             errorFunc: function (e) {
-              console.log(e);
+                console.log(e);
             },
             encode: true
-          });
+        });
 
-          CommonMethod.sendData({
+        CommonMethod.sendData({
             url: AppGlobal.url.java_url,
             code: 'testService',
             method: 'rd_xia_zai_by_lan_mu',
             isLogin: false,
-            message: { "lan_mu":self.state.lan_mu },
+            message: { "lan_mu": self.state.lan_mu },
             successFunc: function (response) {
                 console.log(response);
                 self.setState({
@@ -222,7 +233,7 @@ export default class QueRen extends React.Component {
     }
 
     handleClick = e => {
-       
+
         emitter.emit('someEvent', e.key);
 
         console.log('click ', e.key);
@@ -232,12 +243,12 @@ export default class QueRen extends React.Component {
             code: 'testService',
             method: 'get_tables_by_tittle',
             isLogin: false,
-            message: { "ban_kuai":self.state.ban_kuai, "lan_mu":self.state.lan_mu,"tittle":e.key },
+            message: { "ban_kuai": self.state.ban_kuai, "lan_mu": self.state.lan_mu, "tittle": e.key },
             successFunc: function (response) {
                 console.log(response);
                 self.setState({
                     ji_li_qing_dan: response.ji_li_qing_dan,
-                    tittle:e.key,
+                    tittle: e.key,
                 });
             },
             errorFunc: function (e) {

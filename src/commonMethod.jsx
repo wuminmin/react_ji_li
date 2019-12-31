@@ -81,15 +81,21 @@ export default class CommonMethod {
             let loginordata=isLogin?"get.login?":"get.data?";
             axios({
                 method: 'post',
-                url: `${url}${loginordata}s=${sequence}&c=${code}&m=${method}`,
+                url: `${url}${loginordata}s=${sequence}&c=${code}&m=${method}&v=0&callback=`,
                 data:content,
                 headers: {
                     'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
                 },
                 cancelToken:options.cancelToken?options.cancelToken:false
             }).then(res=>{
-                let data=res.data;
-                if (data.r == 0) {//success
+                console.log('CommonMethod----------------');
+                console.log(res);
+                // let data = res.data;
+                let str2=  res.data.replace('(','') ;
+                let str3=  str2.replace(')','') ;
+                let data = JSON.parse (str3) ;
+                console.log(data);
+                if (data.r == "0") {//success
                     successFunc(data.m);
                 } else if(data.r=="-999"&&data.a=="login"){
                     if(notShowLogin){

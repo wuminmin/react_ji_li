@@ -4,7 +4,7 @@ import BraftEditor from 'braft-editor';
 import axios from 'axios';
 import Qs from 'qs';
 import moment from 'moment';
-import { Select, Layout, Menu, Breadcrumb, Icon, Row, Col, Dropdown, Button, Tag, PageHeader } from 'antd';
+import { Select, Layout, Menu, Breadcrumb, Icon, Row, Col, Dropdown, Button, Tag, PageHeader, Input } from 'antd';
 import MyHeader from './MyHeader';
 import AppGlobal from './AppGlobal';
 import CommonMethod from './commonMethod';
@@ -93,6 +93,7 @@ export default class WenZhang extends React.Component {
         type1: '',
         type2: '',
         type3: '',
+        duan_xin:'',
     }
 
     componentDidMount() {
@@ -135,7 +136,7 @@ export default class WenZhang extends React.Component {
     }
 
     handleChangeBanShiRiQi = (e) => {
-        this.setState({ type: e.target.value });
+        this.setState({ duan_xin: e.target.value });
     }
 
     handleChangeBanShiRiQi2 = (e) => {
@@ -176,6 +177,9 @@ export default class WenZhang extends React.Component {
 
                         <h5>预览文章</h5>
                         <div dangerouslySetInnerHTML={{ __html: myHTML }} />
+
+                        <h5>群发短信内容：</h5>
+                        <input type="txt" defaultValue="" onChange={this.handleChangeBanShiRiQi} />
                         {/* <h5>选择活动对象</h5>
                         <Demo></Demo> */}
                         <Button
@@ -192,6 +196,7 @@ export default class WenZhang extends React.Component {
                                         "tittle": self.state.tittle,
                                         "ban_kuai": self.state.ban_kuai,
                                         "lan_mu":self.state.lan_mu,
+                                        "duan_xin":self.state.duan_xin,
                                         "now": moment().format('YYYY-MM-DD HH:mm:ss')
                                     },
                                     successFunc: function (response) {
