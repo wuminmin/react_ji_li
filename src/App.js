@@ -26,7 +26,7 @@ class MyTabs extends React.Component {
     let self = this;
     CommonMethod.sendData({
       url: AppGlobal.url.java_url,
-      code: 'ji_li_zhu_shou_service',
+      code: 'chz566JiLiZhuShouService',
       method: 'rd_xia_zai_tabs_by_ban_kuai',
       isLogin: false,
       message: { ban_kuai: this.state.ban_kuai },
@@ -100,7 +100,7 @@ export default class App extends React.Component {
     let self = this;
     CommonMethod.sendData({
       url: AppGlobal.url.java_url,
-      code: 'ji_li_zhu_shou_service',
+      code: 'chz566JiLiZhuShouService',
       method: 'xia_zai_yong_hu_xin_xi',
       isLogin: false,
       message: {},
