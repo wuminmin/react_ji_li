@@ -10,6 +10,8 @@ import DuiXian from './DuiXian';
 import QueRen from './QueRen';
 import CommonMethod from './commonMethod';
 
+const workflowUrl =  'http://134.64.116.90:8101/ji_li_zhu_shou/'
+
 const routing = (
   <HashRouter>
     <div>
@@ -23,7 +25,7 @@ const routing = (
   </HashRouter>
 )
 
-
+// eslint-disable-next-line
 window.onload=function(){
   
   WorkHelper.getToken({
