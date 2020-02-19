@@ -273,6 +273,7 @@ export default class DuiXian extends React.Component {
                             <p>确认删除！</p>
                         </Modal>
                         <Table
+                            ellipsis = 'true'
                             onRow={record => {
                                 return {
                                     onClick: event => {
