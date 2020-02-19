@@ -13,13 +13,13 @@ export default class MyHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            usertoken:this.props.usertoken,
+            usertoken: this.props.usertoken,
             collapsed: false,
             myHTML: '',
             ban_kuai: '',
             lan_mu: '',
         }
-      }
+    }
 
     componentDidMount() {
     }
@@ -50,7 +50,7 @@ export default class MyHeader extends React.Component {
                 </Menu.Item>
                 <Menu.Item>
                     <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.已兑现}>
-                    已兑现
+                        已兑现
         </a>
                 </Menu.Item>
                 <Menu.Item>
@@ -79,7 +79,7 @@ export default class MyHeader extends React.Component {
                 </Menu.Item>
                 <Menu.Item>
                     <a target="_blank" rel="noopener noreferrer" href={AppGlobal.url.已归档激励}>
-                    已归档激励
+                        已归档激励
         </a>
                 </Menu.Item>
             </Menu>
@@ -138,44 +138,36 @@ export default class MyHeader extends React.Component {
                     </Carousel>
                 </Row> */}
                 <br></br>
-                <Row>
-                    <Col span={4}>
-                    </Col>
-                    <Col span={4}>
+                <Row
+                    type='flex'
+                    justify='center'
+                >
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Dropdown overlay={menu} placement="bottomCenter">
                             <Button>首页</Button>
                         </Dropdown>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Dropdown overlay={menu2} placement="bottomCenter">
                             <Button>营销活动</Button>
                         </Dropdown>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Dropdown overlay={menu3} placement="bottomCenter">
                             <Button>活动管理</Button>
                         </Dropdown>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Dropdown overlay={menu4} placement="bottomCenter">
                             <Button>我的激励</Button>
                         </Dropdown>
                     </Col>
-                    <Col span={4}>
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Dropdown overlay={menu5} placement="bottomCenter">
                             <Button>活动管控</Button>
                         </Dropdown>
                     </Col>
-                    {/* <Col span={3}>
-                        <Dropdown overlay={menu6} placement="bottomCenter">
-                            <Button>府委两院</Button>
-                        </Dropdown>
-                    </Col>
-                    <Col span={3}>
-                        <Dropdown overlay={menu7} placement="bottomCenter">
-                            <Button>乡镇人大</Button>
-                        </Dropdown>
-                    </Col> */}
+
                 </Row>
                 <br></br>
             </div>

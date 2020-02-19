@@ -268,7 +268,7 @@ export default class QueRen extends React.Component {
                         />,
                     <Menu
                             onClick={this.handleClick}
-                            style={{ width: 256 }}
+                            // style={{ width: auto }}
                             defaultSelectedKeys={['1']}
                             defaultOpenKeys={['sub1']}
                             mode="inline"

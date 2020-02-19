@@ -186,30 +186,31 @@ export default class WenZhang extends React.Component {
                             type="primary"
                             onClick={e => {
                                 let self = this;
-                                CommonMethod.sendData({
-                                    url: AppGlobal.url.java_url,
-                                    code: 'chz566JiLiZhuShouService',
-                                    method: 'rd_updata',
-                                    isLogin: false,
-                                    message: {
-                                        "article": self.state.outputHTML,
-                                        "tittle": self.state.tittle,
-                                        "ban_kuai": self.state.ban_kuai,
-                                        "lan_mu":self.state.lan_mu,
-                                        "duan_xin":self.state.duan_xin,
-                                        "now": moment().format('YYYY-MM-DD HH:mm:ss')
-                                    },
-                                    successFunc: function (response) {
-                                        console.log(response);
-                                        self.setState({
-                                            myHTML: response.article
-                                        });
-                                    },
-                                    errorFunc: function (e) {
-                                        console.log(e);
-                                    },
-                                    encode: true
-                                });
+                                console.log(self.state.outputHTML);
+                                // CommonMethod.sendData({
+                                //     url: AppGlobal.url.java_url,
+                                //     code: 'chz566JiLiZhuShouService',
+                                //     method: 'rd_updata',
+                                //     isLogin: false,
+                                //     message: {
+                                //         "article": self.state.outputHTML,
+                                //         "tittle": self.state.tittle,
+                                //         "ban_kuai": self.state.ban_kuai,
+                                //         "lan_mu":self.state.lan_mu,
+                                //         "duan_xin":self.state.duan_xin,
+                                //         "now": moment().format('YYYY-MM-DD HH:mm:ss')
+                                //     },
+                                //     successFunc: function (response) {
+                                //         console.log(response);
+                                //         self.setState({
+                                //             myHTML: response.article
+                                //         });
+                                //     },
+                                //     errorFunc: function (e) {
+                                //         console.log(e);
+                                //     },
+                                //     encode: true
+                                // });
                             }
                             }>上传文章</Button>
                     </Col>
